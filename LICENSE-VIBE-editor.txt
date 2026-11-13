@@ -1,0 +1,1 @@
+The source archive contains only the host SDK shim vibe-editor.js from the upstream emulator folder. That file carries its own SPDX-License-Identifier: Apache-2.0 header. See LICENSE-VIBE-SDK.txt.
