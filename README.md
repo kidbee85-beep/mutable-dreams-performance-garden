@@ -24,3 +24,9 @@ The expected SHA-256 of `build/mutable-dreams-garden.wasm` is `6b6f9f92a47b118c0
 ## Licence
 
 The combined firmware and Performance Garden source are distributed under GPL-3.0-only. The shared engine includes separately licensed components and notices. The VIBE FM SDK and editor helper are Apache-2.0 with their upstream notices. The VIBE FM plug-in installer is available from The Firmware Hub.
+
+## Watch, follow and support
+
+[Project and illustrated guide](https://kidbee85-beep.github.io/mutable-dreams/#performance-garden) · [Full walkthrough](https://www.youtube.com/watch?v=BT8Njfo1C6s) · [Short demonstration](https://www.youtube.com/shorts/DOzcqtq9R-o) · [Instagram @mutabledreams](https://www.instagram.com/mutabledreams/) · [Mutable Dreams FM](https://kidbee85-beep.github.io/mutable-dreams/radio.html)
+
+[Support development via PayPal](https://paypal.com/donate/?business=kidbee85@gmail.com). Voluntary support goes entirely into firmware updates, new firmware and synthesizer software.
