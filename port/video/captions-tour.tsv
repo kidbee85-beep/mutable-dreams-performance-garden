@@ -1,0 +1,44 @@
+0.6	5.6	Mutable Dreams · Performance Garden | Kid Bunka · Mutable Dreams 2.1, built with the VIBE FM SDK
+6	11.6	Play | A Biome wakes up: six tracks of evolving music in one key and tempo
+12	23.6	Four macros | Density, motion, colour and space shape the whole garden – they are its weather
+24	27.8	Tone pads 1–4 | Root, fifth, third, ninth – notes, chords or arpeggios in the Biome's key
+28	34.8	Texture pads 5–8 | Forest, air and water; stardust follows the Biome's key
+35	41.8	Space pads 9–12 | Bloom, echo, grain, dusk – open the room, let it repeat, scatter it, darken it
+42	46.8	Form pads 13–16 | Thin lets tracks rest, pulse breathes on the eighths, next and gesture follow
+47	52	The gesture | Tap pad 16 and play textures and spaces …
+52.2	58.8	The gesture | … tap 16 again: your hands loop by themselves, the lanes show them
+59	63.6	Next | Pad 15 moves to the next of six favourite Biomes – the gesture keeps going
+64	68.6	Variation | SHIFT + 15: the same Biome, newly seeded – SHIFT + RETURN takes it back
+69	74.6	All 50 pages | The display at twice its size, with page controls beside it
+75	80.6	Browser | 271 Biomes in 19 families; browse Kid Bunka's 48 worlds
+81	86.6	Moments | On PADS: SHIFT + F stores a performance snapshot; F recalls it
+87	91.6	Mixer | Six tracks, 24 sound engines from Plaits, Rings, Elements and Mutable Dreams
+92	95.6	Filter and envelope | LP12, LP24 or LPG filtering; attack up to 8 s, decay up to 16 s
+96	100.6	Motion | Marbles, Tides, two LFOs, links between tracks, drift between two scenes
+101	105.6	Harmony | 13 scales, chord progressions, a bassline with its own sixteen steps
+106	110.6	Sequencer | Euclidean rhythms, steps with rules and fills, generators, a lo-fi drum kit
+111	114.6	Effects | The echo cave, the spore meadow, the grain cloud, the tape
+115	122.6	Places | Where the sound goes: cave, meadow, stream, reeds, the moon pond, the singing flower
+123	127.6	Audio input | LISTEN routes IN 1 / IN 2 through cloud, echo and room
+128	133.6	Sing | Follow, harmony or answer: the garden plays along with your voice
+134	147	Call and response | A synthetic voice in IN 1 sings a phrase and stops – the garden answers
+148	153.6	CV and gate | CV OUT and GATE OUT follow a track; CV IN can control a macro
+154	161.6	Mutable Dreams FM | A radio station inside the instrument; SKIP finds the next piece
+162	166.6	Itinera | Fourteen long dreams, from thirty minutes to four hours
+167	171.6	Journeys and banks | Chain Biomes into a journey; sixteen banks keep whole sound projects
+172	177.6	In the studio | 30 DAW parameters, song position, stems, Dream as MIDI, MIDI learn, REC takes
+178	182.6	Help | HOME explains the page; hold an F key to read its help
+183	189.6	First steps | A guided tour for new players – each card moves on when you have done it
+190	198.6	Latch and depth | SHIFT + pad keeps a pad playing; encoders A and B set how deep the rows go
+199	206.6	Tone modes | Note, chord or arpeggio in time – SHIFT + encoder 1 on PADS
+207	216.6	Layer and speed | SHIFT + 16 layers more moves into the loop; it plays half, double or reversed
+217	226.6	Wander | When your hands rest, the garden plays its texture and space pads by itself
+227	237.6	Drift | Capture two scenes, and the garden glides between them by itself
+238	243.6	Moves | The input's loudness lifts a macro – here DENSITY
+244	249.4	Key | Sing one note: it becomes the Biome's key
+249.5	252.8	Hold | The cloud freezes with the input inside
+253	259.6	Fills and bass | F1 queues a fill on SEQ RULES; the bassline plays Euclid or its own steps
+260	265.6	Journey | Up to eight Biomes in a row, each with bars, repeats and the tracks it keeps
+266	273.6	MIDI learn | Move a controller: a CC now moves DENSITY – or level, cutoff, a send, the drift
+274	282.6	REC | A take of what you hear, written as a WAV file to the host's media folder
+283	293.6	Mutable Dreams · Performance Garden | Kid Bunka · built with the VIBE FM SDK · free software, GPL-3.0-only

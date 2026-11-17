@@ -1,0 +1,380 @@
+# (VIBE FM port: the 48 worlds as of 0.19, copied from the Trimui Brick port; tools/make_worlds.py reads them.)
+# WORLDS - Mutable Dreams for Trimui Brick, by Kid Bunka
+#
+# Each world grows from one of the engine's Biomes (its number in the atlas) and sets the Sound Lab around it.
+# Add your own: a block like the ones below. Lines:
+#   [FAMILY] Name
+#   biome  = number                     the Biome
+#   story  = one line
+#   tempo  = BPM                        (optional)
+#   macros = DENSITY MOTION COLOUR SPACE  in %   (optional)
+#   engine = NAME TRACK VALUE; ...      MUTE, LEVEL, SEND, CUTOFF, RESONANCE, DECAY, TONE, HARM, PAN, ATTACK,
+#                                       BREATHE, PROB (with a track 1-6, values in %, MUTE 0/1);
+#                                       SWING, DELAY_TIME (ms), DELAY_FB, REVERB_TIME, FX_LEVEL, GRAIN_SIZE,
+#                                       GRAIN_POS, FEEDBACK, GRAIN_PITCH (semitones), REVERSE, FREEZE, ROOT,
+#                                       TRANSPOSE (without a track)
+#   lab    = MODULE.NAME VALUE; ...     as on the Sound Lab's pages, _ for spaces (LOGIC.RANGE_(OCTAVES) 2)
+# Entering a world sets the Sound Lab back to neutral first (the chosen sample and voice files stay).
+# LOGIC.RULE: 0 TINTINNABULI 1 PHASING 2 FIBONACCI 3 AUTOMATON 4 MARKOV 5 L-SYSTEM 6 HARMONIC
+# LOGIC.VOICE_1_TO: 0-5 a track, 6 POLY, 7 SYNTH; VOICE_2_TO: 0 the same, 1-6 a track, 7 POLY, 8 SYNTH
+# SYNTH.ENGINE: 0 JUST DRONE 1 MODAL GARDEN 2 SHEPARD 3 KARPLUS RAIN 4 GOLDEN BELLS 5 FORMANT CHOIR
+# SYNTH.PLAYED_BY: 0 itself, 1 LOGIC, 2-7 the hits of track 1-6
+# RATE: 0 1/4  1 1/8  2 1/8T  3 1/16  4 1/16T  5 1/32
+
+# ---------------------------------------------------------------- GARDENS OF NUMBER: the mathematics plays
+
+[GARDENS OF NUMBER] Arvo's Garden
+biome  = 89
+story  = A melody walks out from the centre and home again; the triad answers like a bell.
+tempo  = 48
+macros = 25 20 40 70
+engine = MUTE 4 1; MUTE 5 1
+lab    = LOGIC.PLAY 1; LOGIC.RULE 0; LOGIC.VOICE_1_TO 6; LOGIC.RATE 0; LOGIC.DENSITY 85; LOGIC.SHAPE 50; LOGIC.GATE 90; POLY.LEVEL 60; POLY.MODEL 13; POLY.ATTACK 30; POLY.RELEASE 70; POLY.VOICES 6; SHIMMER.MIX 30; SHIMMER.DECAY 70; SENDS.POLY_>_SHIMMER 50
+
+[GARDENS OF NUMBER] Two Rivers, One Pattern
+biome  = 22
+story  = One figure in two loops, one a step longer: they part, and after a long while they meet again.
+tempo  = 80
+macros = 40 35 55 45
+lab    = LOGIC.PLAY 1; LOGIC.RULE 1; LOGIC.VOICE_1_TO 7; LOGIC.RATE 3; LOGIC.SHAPE 40; LOGIC.DENSITY 75; LOGIC.GATE 60; SYNTH.LEVEL 70; SYNTH.ENGINE 3; SYNTH.PLAYED_BY 1; SYNTH.DECAY 60; SYNTH.BRIGHTNESS 60; SYNTH.SPREAD 70; SEEDS.MIX 25; SENDS.SYNTH_>_SEEDS 40
+
+[GARDENS OF NUMBER] Golden Hour
+biome  = 87
+story  = The golden ratio as a rhythm that never repeats; a canon five steps behind.
+tempo  = 64
+macros = 35 30 50 55
+lab    = LOGIC.PLAY 1; LOGIC.RULE 2; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.SHAPE 45; LOGIC.DENSITY 70; SYNTH.LEVEL 70; SYNTH.ENGINE 4; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 35; SYNTH.DECAY 70; SYNTH.SPREAD 60; SHIMMER.MIX 25; SENDS.SYNTH_>_SHIMMER 40
+
+[GARDENS OF NUMBER] Rule Thirty
+biome  = 160
+story  = A cellular world, one generation a bar; whatever lives sings in stacked thirds.
+tempo  = 87
+macros = 45 40 45 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.VOICE_1_TO 7; LOGIC.VOICE_2_TO 7; LOGIC.RATE 3; LOGIC.SHAPE 0; LOGIC.DENSITY 60; SYNTH.LEVEL 75; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.DECAY 55; SYNTH.CHARACTER 20; POLY.LEVEL 45; POLY.MODEL 20; PARTICLES.MIX 20; SENDS.SYNTH_>_PARTICLES 30
+
+[GARDENS OF NUMBER] The Walker
+biome  = 95
+story  = A chain of chances: steps more than leaps, always drawn home to the tonic.
+tempo  = 54
+macros = 30 25 35 65
+lab    = LOGIC.PLAY 1; LOGIC.RULE 4; LOGIC.VOICE_1_TO 6; LOGIC.RATE 0; LOGIC.SHAPE 25; LOGIC.DENSITY 80; LOGIC.GATE 95; POLY.LEVEL 60; POLY.MODEL 6; POLY.ATTACK 45; POLY.RELEASE 75; POLY.VOICES 6; CLOUD.MIX 30; SENDS.POLY_>_CLOUD 50; COLOUR.ENSEMBLE 40
+
+[GARDENS OF NUMBER] Fern Grammar
+biome  = 205
+story  = A grammar grows a fern: each time round, one generation deeper, until it starts again.
+tempo  = 66
+macros = 40 45 40 50
+lab    = LOGIC.PLAY 1; LOGIC.RULE 5; LOGIC.VOICE_1_TO 6; LOGIC.VOICE_2_TO 8; LOGIC.RATE 1; LOGIC.SHAPE 10; LOGIC.DENSITY 75; POLY.LEVEL 55; POLY.MODEL 10; POLY.RELEASE 50; SYNTH.LEVEL 55; SYNTH.ENGINE 3; SYNTH.PLAYED_BY 1; SYNTH.OCTAVE -1; SEEDS.MIX 20; SENDS.POLY_>_SEEDS 35
+
+# ---------------------------------------------------------------- BELLS AND RESONANCE
+
+[BELLS AND RESONANCE] Bell Orchard at Noon
+biome  = 135
+story  = Irrational bells in an orchard: never quite in tune, never quite out.
+tempo  = 72
+macros = 40 30 55 55
+lab    = SYNTH.LEVEL 75; SYNTH.ENGINE 4; SYNTH.CHARACTER 35; SYNTH.DENSITY 45; SYNTH.DECAY 75; SYNTH.SPREAD 80; SHIMMER.MIX 30; SHIMMER.SHIMMER 40; SENDS.SYNTH_>_SHIMMER 45
+
+[BELLS AND RESONANCE] Snowglass Chimes
+biome  = 158
+story  = Glass in the frost; a few struck tones hang in the cold air.
+tempo  = 48
+macros = 25 20 60 75
+engine = FREEZE 0
+lab    = SYNTH.LEVEL 70; SYNTH.ENGINE 1; SYNTH.CHARACTER 70; SYNTH.DENSITY 25; SYNTH.DECAY 85; SYNTH.BRIGHTNESS 75; SHIMMER.MIX 40; SHIMMER.DECAY 80; SHIMMER.SHIMMER 55; SENDS.SYNTH_>_SHIMMER 55; TEXTURES.AIR 25
+
+[BELLS AND RESONANCE] Stone Language
+biome  = 143
+story  = The stones answer each other: resonators struck by what the tracks play.
+tempo  = 88
+macros = 45 40 45 45
+lab    = SYNTH.LEVEL 70; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 3; SYNTH.CHARACTER 40; SYNTH.DECAY 60; SYNTH.SPREAD 60; PARTICLES.MIX 20; PARTICLES.MODE 2; SENDS.SYNTH_>_PARTICLES 35
+
+[BELLS AND RESONANCE] Moonstone Vessel
+biome  = 202
+story  = A slow vessel of moonstone; its partials breathe in pure ratios.
+tempo  = 36
+macros = 20 15 35 80
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 0; SYNTH.CHARACTER 85; SYNTH.MOTION 55; SYNTH.BRIGHTNESS 40; SYNTH.OCTAVE -1; LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 6; LOGIC.RATE 0; LOGIC.SHAPE 60; POLY.LEVEL 40; POLY.MODEL 12; POLY.ATTACK 60; POLY.RELEASE 80; SHIMMER.MIX 35
+
+[BELLS AND RESONANCE] Paper Constellation
+biome  = 172
+story  = Tiny bells cut from paper, hung across the night like stars.
+tempo  = 91
+macros = 50 45 60 40
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 4; SYNTH.CHARACTER 85; SYNTH.OCTAVE 1; SYNTH.DENSITY 55; SYNTH.DECAY 45; LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.SHAPE 30; LOGIC.VOICE_1_TO 7; SYNTH.PLAYED_BY 1; TEXTURES.STARDUST 30
+
+[BELLS AND RESONANCE] Cedar Comets
+biome  = 186
+story  = Whole tones and cedar wood: bells that fall like comets, slowly.
+tempo  = 70
+macros = 35 35 50 60
+lab    = SYNTH.LEVEL 65; SYNTH.ENGINE 1; SYNTH.CHARACTER 55; SYNTH.DENSITY 35; SYNTH.DECAY 80; CLOUD.MIX 30; CLOUD.PITCH -12; SENDS.SYNTH_>_CLOUD 45; SHIMMER.MIX 25
+
+# ---------------------------------------------------------------- DRONES AND OVERTONES
+
+[DRONES AND OVERTONES] Harmonic Hearth
+biome  = 11
+story  = The fire's own overtones, one above the other, as nature tunes them.
+tempo  = 48
+macros = 20 15 35 70
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 0; SYNTH.CHARACTER 10; SYNTH.MOTION 40; SYNTH.BRIGHTNESS 55; LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 6; LOGIC.RATE 0; LOGIC.SHAPE 75; LOGIC.DENSITY 60; POLY.LEVEL 45; POLY.MODEL 12; POLY.ATTACK 50; POLY.RELEASE 80
+
+[DRONES AND OVERTONES] Dawn Without Edges
+biome  = 185
+story  = A just major chord stacked to the sky; the light comes up without a seam.
+tempo  = 34
+macros = 15 15 50 80
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 0; SYNTH.CHARACTER 50; SYNTH.MOTION 30; SYNTH.BRIGHTNESS 60; SHIMMER.MIX 35; SHIMMER.DECAY 85; SENDS.SYNTH_>_SHIMMER 40; TEXTURES.AIR 20
+
+[DRONES AND OVERTONES] Septimal Cave
+biome  = 17
+story  = Deep in a blue cave the seventh partial sings its colours, that no keyboard knows.
+tempo  = 46
+macros = 25 25 30 75
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 0; SYNTH.CHARACTER 90; SYNTH.MOTION 60; SYNTH.BRIGHTNESS 35; SYNTH.OCTAVE -1; SEEDS.MIX 25; SEEDS.MEDIA 0; SENDS.SYNTH_>_SEEDS 40; TEXTURES.WATER 15
+
+[DRONES AND OVERTONES] Understory Cello
+biome  = 213
+story  = Under the trees, a held cello; above it a voice singing only overtones.
+tempo  = 38
+macros = 20 20 40 70
+lab    = LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 6; LOGIC.VOICE_2_TO 7; LOGIC.RATE 0; LOGIC.SHAPE 100; LOGIC.DENSITY 70; POLY.LEVEL 55; POLY.MODEL 11; POLY.ATTACK 40; POLY.RELEASE 85; POLY.VOICES 4; CLOUD.MIX 25; SENDS.POLY_>_CLOUD 40
+
+[DRONES AND OVERTONES] Ochre Observatory
+biome  = 217
+story  = A double harmonic scale under a slow dome; the drone turns like a telescope.
+tempo  = 58
+macros = 30 35 45 55
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 0; SYNTH.CHARACTER 20; SYNTH.MOTION 70; LOGIC.PLAY 1; LOGIC.RULE 4; LOGIC.VOICE_1_TO 6; LOGIC.RATE 1; LOGIC.SHAPE 50; LOGIC.DENSITY 55; POLY.LEVEL 45; POLY.MODEL 1; POLY.RELEASE 60
+
+[DRONES AND OVERTONES] Slow Monolith
+biome  = 13
+story  = A stone that hums at the lowest pentatonic; nothing moves but the breath of it.
+tempo  = 42
+macros = 15 10 25 80
+lab    = SYNTH.LEVEL 65; SYNTH.ENGINE 0; SYNTH.CHARACTER 10; SYNTH.MOTION 20; SYNTH.BRIGHTNESS 25; SYNTH.OCTAVE -2; COLOUR.TAPE_DRIVE 25; COLOUR.AGE 20; TEXTURES.FOREST 15
+
+# ---------------------------------------------------------------- RAIN AND WATER
+
+[RAIN AND WATER] Cedar After Rain
+biome  = 177
+story  = The last drops on the strings of the cedar; the forest breathes out.
+tempo  = 64
+macros = 35 30 45 55
+lab    = SYNTH.LEVEL 70; SYNTH.ENGINE 3; SYNTH.DENSITY 45; SYNTH.DECAY 65; SYNTH.CHARACTER 30; SYNTH.SPREAD 85; TEXTURES.WATER 35; TEXTURES.FOREST 25; SEEDS.MIX 20; SENDS.SYNTH_>_SEEDS 30
+
+[RAIN AND WATER] Glass Monsoon
+biome  = 133
+story  = Monsoon on a glasshouse: everything drips in the key.
+tempo  = 72
+macros = 60 50 55 45
+lab    = SYNTH.LEVEL 70; SYNTH.ENGINE 3; SYNTH.DENSITY 80; SYNTH.DECAY 45; SYNTH.BRIGHTNESS 75; SYNTH.OCTAVE 1; TEXTURES.WATER 50; PARTICLES.MIX 25; PARTICLES.MODE 0; SENDS.SYNTH_>_PARTICLES 35
+
+[RAIN AND WATER] Tidepool Choir
+biome  = 176
+story  = Small pools at low tide; in each one, a resonant stone rings when the water touches it.
+tempo  = 36
+macros = 20 25 45 70
+lab    = SYNTH.LEVEL 70; SYNTH.ENGINE 1; SYNTH.DENSITY 30; SYNTH.DECAY 75; SYNTH.CHARACTER 30; TEXTURES.WATER 45; SHIMMER.MIX 30; SENDS.SYNTH_>_SHIMMER 40
+
+[RAIN AND WATER] Pale Currents
+biome  = 131
+story  = Currents you can only hear: a tape of water, folding in on itself.
+tempo  = 58
+macros = 35 45 40 55
+lab    = SEEDS.MIX 40; SEEDS.MEDIA 1; SEEDS.DENSITY 70; SEEDS.TIME 40; SEEDS.FEEDBACK 40; SENDS.WHOLE_MIX_>_SEEDS 50; TEXTURES.WATER 40; SYNTH.LEVEL 45; SYNTH.ENGINE 3; SYNTH.DENSITY 25
+
+[RAIN AND WATER] Under the Ice
+biome  = 271
+story  = Whole tones beneath the ice; the world above is frozen, and still something flows.
+tempo  = 46
+macros = 25 20 30 75
+engine = FREEZE 1
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 1; SYNTH.DENSITY 20; SYNTH.DECAY 90; SYNTH.CHARACTER 80; SYNTH.BRIGHTNESS 30; TEXTURES.WATER 30; SHIMMER.MIX 40; SHIMMER.DAMPING 60
+
+[RAIN AND WATER] Bamboo Estuary
+biome  = 198
+story  = Where the river meets the sea, bamboo knocks in the wind and the tide.
+tempo  = 74
+macros = 45 45 50 50
+lab    = LOGIC.PLAY 1; LOGIC.RULE 2; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.SHAPE 30; SYNTH.LEVEL 70; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 10; SYNTH.DECAY 35; TEXTURES.WATER 30; TEXTURES.AIR 20
+
+# ---------------------------------------------------------------- NIGHT CHOIRS
+
+[NIGHT CHOIRS] Blue Hour Choir
+biome  = 253
+story  = The hour between: a choir hums on a vowel that slowly opens.
+tempo  = 50
+macros = 25 30 45 65
+lab    = SYNTH.LEVEL 65; SYNTH.ENGINE 5; SYNTH.CHARACTER 10; SYNTH.MOTION 55; SYNTH.DENSITY 35; SHIMMER.MIX 35; SHIMMER.DECAY 75; SENDS.SYNTH_>_SHIMMER 45
+
+[NIGHT CHOIRS] Chapel of Fog
+biome  = 257
+story  = Fog fills the chapel; the voices drift from O to U and back.
+tempo  = 47
+macros = 20 25 40 75
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 5; SYNTH.CHARACTER 85; SYNTH.MOTION 40; SYNTH.OCTAVE -1; CLOUD.MIX 30; SENDS.SYNTH_>_CLOUD 45; TEXTURES.AIR 25
+
+[NIGHT CHOIRS] Midnight Harmonium
+biome  = 178
+story  = An old harmonium at midnight; under it the choir breathes the chord.
+tempo  = 38
+macros = 20 20 35 70
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 5; SYNTH.CHARACTER 40; SYNTH.MOTION 30; COLOUR.ENSEMBLE 45; COLOUR.WOW_+_FLUTTER 25; COLOUR.AGE 30
+
+[NIGHT CHOIRS] Saltwind Cathedral
+biome  = 183
+story  = A cathedral of salt and wind; the choir finds the overtones in the stone.
+tempo  = 48
+macros = 25 30 50 75
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 5; SYNTH.CHARACTER 25; SYNTH.MOTION 45; LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 6; LOGIC.SHAPE 50; LOGIC.RATE 0; POLY.LEVEL 40; POLY.MODEL 12; POLY.RELEASE 85; SHIMMER.MIX 40; SHIMMER.SHIMMER 50
+
+[NIGHT CHOIRS] Murmur Reef
+biome  = 260
+story  = Under water, a reef murmurs; voices without words travel through it.
+tempo  = 70
+macros = 35 40 40 55
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 5; SYNTH.CHARACTER 60; SYNTH.MOTION 75; TEXTURES.WATER 35; SEEDS.MIX 25; SENDS.SYNTH_>_SEEDS 35
+
+[NIGHT CHOIRS] Held Breath
+biome  = 204
+story  = Thirty beats a minute; the choir and the night hold their breath together.
+tempo  = 30
+macros = 10 15 35 85
+lab    = SYNTH.LEVEL 50; SYNTH.ENGINE 5; SYNTH.CHARACTER 20; SYNTH.MOTION 20; SYNTH.OCTAVE -1; SHIMMER.MIX 45; SHIMMER.DECAY 90; SENDS.WHOLE_MIX_>_SHIMMER 30
+
+# ---------------------------------------------------------------- ENDLESS: what never arrives
+
+[ENDLESS] The Staircase
+biome  = 114
+story  = A staircase that rises for ever and never leaves the room.
+tempo  = 42
+macros = 20 20 40 70
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 2; SYNTH.CHARACTER 20; SYNTH.MOTION 25; SYNTH.BRIGHTNESS 45; SHIMMER.MIX 30; SENDS.SYNTH_>_SHIMMER 35
+
+[ENDLESS] The Well
+biome  = 125
+story  = Falling, softly, without a floor; the eclipse lasts.
+tempo  = 48
+macros = 20 25 30 75
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 2; SYNTH.CHARACTER 80; SYNTH.MOTION 20; SYNTH.BRIGHTNESS 30; CLOUD.MIX 30; CLOUD.REVERSE 40; SENDS.SYNTH_>_CLOUD 40
+
+[ENDLESS] Phase Garden
+biome  = 79
+story  = Two loops of eight and nine: they lose each other and find each other, for an hour.
+tempo  = 56
+macros = 30 30 45 60
+lab    = LOGIC.PLAY 1; LOGIC.RULE 1; LOGIC.VOICE_1_TO 6; LOGIC.RATE 1; LOGIC.SHAPE 25; LOGIC.DENSITY 85; LOGIC.VARIATION 0; POLY.LEVEL 60; POLY.MODEL 20; POLY.DECAY 40; POLY.RELEASE 40; POLY.VOICES 8; SHIMMER.MIX 20
+
+[ENDLESS] A Window Left Open
+biome  = 224
+story  = Thirty-two beats a minute; the curtain lifts, settles, lifts.
+tempo  = 32
+macros = 15 20 45 80
+lab    = SYNTH.LEVEL 45; SYNTH.ENGINE 0; SYNTH.CHARACTER 50; SYNTH.MOTION 35; TEXTURES.AIR 35; TEXTURES.FOREST 15; SHIMMER.MIX 35; SHIMMER.DECAY 85
+
+[ENDLESS] Stillwater Room
+biome  = 211
+story  = A room of still water; the Shepard tone climbs inside the reflection.
+tempo  = 32
+macros = 15 15 30 80
+lab    = SYNTH.LEVEL 45; SYNTH.ENGINE 2; SYNTH.CHARACTER 30; SYNTH.MOTION 10; SYNTH.BRIGHTNESS 20; TEXTURES.WATER 30; SEEDS.MIX 30; SEEDS.MEDIA 0; SENDS.SYNTH_>_SEEDS 40
+
+[ENDLESS] Infinite Library
+biome  = 181
+story  = The library has no last shelf; the L-system writes the next book as you listen.
+tempo  = 42
+macros = 25 25 40 65
+lab    = LOGIC.PLAY 1; LOGIC.RULE 5; LOGIC.VOICE_1_TO 7; LOGIC.RATE 0; LOGIC.SHAPE 50; LOGIC.VARIATION 40; SYNTH.LEVEL 65; SYNTH.ENGINE 4; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 60; SYNTH.DECAY 80; SHIMMER.MIX 30; SENDS.SYNTH_>_SHIMMER 40
+
+# ---------------------------------------------------------------- VOICES AND POEMS: with a voice from the ARCHIVE
+# (VOICES plays the voice file chosen in the Sound Lab: fetch poems in MENU > ARCHIVE first)
+
+[VOICES AND POEMS] Reading Room
+biome  = 181
+story  = A poem read slowly, sentence by sentence, between the shelves.
+tempo  = 42
+macros = 25 20 40 60
+lab    = VOICES.LEVEL 55; VOICES.MODE 0; VOICES.TRIGGER 0; VOICES.DENSITY 35; VOICES.SPREAD 20; SHIMMER.MIX 20; SENDS.VOICES_>_SHIMMER 30; SYNTH.LEVEL 35; SYNTH.ENGINE 0; SYNTH.CHARACTER 50
+
+[VOICES AND POEMS] Radio from the Lighthouse
+biome  = 155
+story  = An old radio in the lighthouse: verses come and go through the crackle.
+tempo  = 68
+macros = 35 35 40 55
+lab    = VOICES.LEVEL 55; VOICES.MODE 0; VOICES.TRIGGER 7; VOICES.RADIO 75; VOICES.DENSITY 50; COLOUR.AGE 35; COLOUR.WOW_+_FLUTTER 30; TEXTURES.WATER 20
+
+[VOICES AND POEMS] Word Rain
+biome  = 43
+story  = Words fall like rain: fragments on the hits of the first track.
+tempo  = 86
+macros = 45 40 45 45
+lab    = VOICES.LEVEL 50; VOICES.MODE 1; VOICES.TRIGGER 1; VOICES.REVERSE_CHANCE 25; VOICES.SPREAD 70; PARTICLES.MIX 25; SENDS.VOICES_>_PARTICLES 40
+
+[VOICES AND POEMS] The Vowel Field
+biome  = 248
+story  = One vowel of a voice, held for as long as the field is wide.
+tempo  = 58
+macros = 25 30 40 70
+lab    = VOICES.LEVEL 55; VOICES.MODE 2; VOICES.TRIGGER 7; VOICES.SPREAD 40; SEEDS.MIX 30; SENDS.VOICES_>_SEEDS 45; SHIMMER.MIX 30; SENDS.VOICES_>_SHIMMER 35
+
+[VOICES AND POEMS] Mantra Garden
+biome  = 109
+story  = One sentence of the poem, again and again in the bars, until it becomes a prayer.
+tempo  = 52
+macros = 30 25 45 65
+lab    = VOICES.LEVEL 55; VOICES.MODE 3; VOICES.PHRASE 3; VOICES.SPREAD 30; SYNTH.LEVEL 40; SYNTH.ENGINE 0; SYNTH.CHARACTER 50; SHIMMER.MIX 25; SENDS.VOICES_>_SHIMMER 30
+
+[VOICES AND POEMS] Poet and Bells
+biome  = 216
+story  = The poem speaks; the bells reply in the golden ratio.
+tempo  = 46
+macros = 25 25 50 60
+lab    = VOICES.LEVEL 50; VOICES.MODE 0; VOICES.TRIGGER 0; VOICES.DENSITY 30; SYNTH.LEVEL 55; SYNTH.ENGINE 4; SYNTH.CHARACTER 35; SYNTH.DENSITY 25; SYNTH.DECAY 80
+
+# ---------------------------------------------------------------- MACHINES AND AUTOMATA
+
+[MACHINES AND AUTOMATA] Clockwork Fern
+biome  = 116
+story  = A fern made of gears; rule ninety draws its leaves.
+tempo  = 113
+macros = 50 45 45 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.SHAPE 15; LOGIC.VOICE_1_TO 6; LOGIC.RATE 3; LOGIC.DENSITY 55; POLY.LEVEL 50; POLY.MODEL 9; POLY.DECAY 30; POLY.SUSTAIN 20; POLY.RELEASE 25
+
+[MACHINES AND AUTOMATA] Rule One Ten
+biome  = 132
+story  = Rule one hundred and ten: complex enough to compute anything, here it computes a groove.
+tempo  = 107
+macros = 50 50 45 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.SHAPE 30; LOGIC.VOICE_1_TO 7; LOGIC.VOICE_2_TO 7; LOGIC.RATE 3; SYNTH.LEVEL 65; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 60; SYNTH.DECAY 35; POLY.LEVEL 45; POLY.MODEL 7
+
+[MACHINES AND AUTOMATA] Wooden Clocks
+biome  = 55
+story  = Clocks of wood that disagree by a tick; the phases wander.
+tempo  = 120
+macros = 50 40 40 35
+lab    = LOGIC.PLAY 1; LOGIC.RULE 1; LOGIC.VOICE_1_TO 7; LOGIC.RATE 3; LOGIC.SHAPE 60; SYNTH.LEVEL 65; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 15; SYNTH.DECAY 25
+
+[MACHINES AND AUTOMATA] Soft Industry
+biome  = 150
+story  = A factory that makes nothing but patience; the Markov chain keeps the pace.
+tempo  = 110
+macros = 55 45 40 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 4; LOGIC.SHAPE 60; LOGIC.VOICE_1_TO 6; LOGIC.RATE 3; LOGIC.DENSITY 60; POLY.LEVEL 50; POLY.MODEL 0; POLY.DECAY 35; POLY.SUSTAIN 30; COLOUR.TAPE_DRIVE 30
+
+[MACHINES AND AUTOMATA] Polyrhythm Bay
+biome  = 40
+story  = Ships ring their bells in a bay full of rhythms, none of them in step.
+tempo  = 116
+macros = 55 50 50 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 2; LOGIC.VOICE_1_TO 7; LOGIC.RATE 3; LOGIC.SHAPE 55; SYNTH.LEVEL 60; SYNTH.ENGINE 4; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 85; SYNTH.DECAY 40; TEXTURES.WATER 20
+
+[MACHINES AND AUTOMATA] Shifting Cells
+biome  = 132
+story  = Cells divide and merge; a crossmodulated hum keeps them company.
+tempo  = 107
+macros = 50 55 45 45
+lab    = LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.SHAPE 90; LOGIC.VOICE_1_TO 6; LOGIC.RATE 3; POLY.LEVEL 45; POLY.MODEL 16; CROSSMOD.MIX 25; CROSSMOD.CARRIER 1; CROSSMOD.MODULATOR 3; PARTICLES.MIX 20; PARTICLES.MODE 3
+
+# ---------------------------------------------------------------- PLAITS ORCHESTRA: one voice, many instruments (0.79)

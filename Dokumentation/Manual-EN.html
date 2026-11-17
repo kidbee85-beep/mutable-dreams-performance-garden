@@ -1,0 +1,710 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Mutable Dreams · Performance Garden · Manual</title><style>
+@page { size: A4; margin: 15mm 17mm 16mm; }
+@page :first { margin: 0; }
+:root {
+  --ink: #12211f; --muted: #51625e; --line: #d5e2dc; --paper: #f7faf8; --night: #0a1719; --mint: #83d2a6;
+  --tone: #b8862a; --texture: #3f9d82; --space: #4f74c4; --form: #8a64c2; --dream: #a46cb8;
+  --tone-bg: #f6ecd6; --texture-bg: #dcf0e8; --space-bg: #e1e8f8; --form-bg: #ece3f7;
+}
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.5; }
+.chapter { break-before: page; }
+h1 { font-size: 24pt; line-height: 1.1; margin: 0 0 2mm; letter-spacing: -0.3pt; }
+h2 { font-size: 13pt; margin: 6mm 0 1.6mm; break-after: avoid; }
+h3 { font-size: 10.6pt; margin: 4mm 0 1.2mm; break-after: avoid; }
+.num { color: var(--texture); font-weight: 800; margin-right: 2mm; }
+.kicker { font-size: 7.8pt; letter-spacing: 1.4pt; text-transform: uppercase; color: var(--texture); font-weight: 700; margin-bottom: 1.5mm; }
+.lead { font-size: 11pt; color: #30413d; margin: 0 0 4mm; }
+p { margin: 0 0 2.4mm; }
+ul, ol { margin: 1mm 0 2.6mm 5mm; padding: 0; }
+li { margin-bottom: 1mm; }
+img { display: block; max-width: 100%; }
+figure { margin: 3mm 0 4mm; break-inside: avoid; }
+figure img { border-radius: 2mm; border: 0.6pt solid #c6d6cf; }
+figcaption { font-size: 8.2pt; color: var(--muted); margin-top: 1.2mm; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; }
+.three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+.card { border: 0.7pt solid var(--line); border-radius: 2.6mm; padding: 3.2mm 4mm; background: var(--paper); break-inside: avoid; margin-bottom: 3mm; }
+.card h3 { margin-top: 0; }
+.note { background: #fff7e8; border: 0.7pt solid #f0dcb4; border-radius: 2.4mm; padding: 2.6mm 3.6mm; font-size: 9.2pt; margin: 3mm 0; break-inside: avoid; }
+.tip { background: #e9f6ef; border: 0.7pt solid #c4e6d3; border-radius: 2.4mm; padding: 2.6mm 3.6mm; font-size: 9.2pt; margin: 3mm 0; break-inside: avoid; }
+.tip b:first-child, .note b:first-child { color: #2c6b56; }
+.note b:first-child { color: #8a5a17; }
+table { width: 100%; border-collapse: collapse; font-size: 8.9pt; margin: 1.5mm 0 3.5mm; }
+th { text-align: left; font-size: 7.4pt; letter-spacing: 0.6pt; text-transform: uppercase; color: var(--muted); font-weight: 700; border-bottom: 1pt solid var(--ink); padding: 1.4mm 2mm 1.1mm 0; }
+td { border-bottom: 0.5pt solid var(--line); padding: 1.35mm 2mm 1.35mm 0; vertical-align: top; }
+tr { break-inside: avoid; }
+td.k { font-weight: 650; white-space: nowrap; }
+table.ref td:first-child { font-weight: 700; white-space: nowrap; width: 19%; }
+table.ref td:nth-child(2) { width: 37%; }
+.kbd { display: inline-block; font-size: 7.6pt; font-weight: 700; border: 0.7pt solid #b9cbc4; border-bottom-width: 1.4pt; border-radius: 1.2mm; padding: 0 1.3mm; background: #fff; white-space: nowrap; }
+.steps { counter-reset: s; list-style: none; margin: 2mm 0 3mm; padding: 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 2.2mm 8.5mm; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: -0.2mm; width: 5.6mm; height: 5.6mm; border-radius: 50%; background: var(--night); color: var(--mint); font-weight: 800; font-size: 8.2pt; display: grid; place-items: center; }
+.toc { columns: 2; column-gap: 9mm; font-size: 10pt; margin: 3mm 0 0; }
+.toc div { break-inside: avoid; padding: 1.2mm 0; border-bottom: 0.5pt dotted var(--line); }
+.toc b { color: var(--texture); display: inline-block; width: 7mm; }
+.grp { display: inline-block; width: 2.4mm; height: 2.4mm; border-radius: 50%; margin-right: 1.4mm; vertical-align: 0.1mm; }
+/* pad map */
+.padmap { display: grid; grid-template-columns: 24mm repeat(4, 1fr); gap: 2mm; margin: 3mm 0 4mm; }
+.padmap .row { font-weight: 800; font-size: 8.6pt; letter-spacing: 0.7pt; display: flex; flex-direction: column; justify-content: center; }
+.padmap .row small { font-weight: 500; letter-spacing: 0; font-size: 7.4pt; color: var(--muted); }
+.pad { border-radius: 2.2mm; padding: 1.8mm 2.4mm; min-height: 16mm; }
+.pad .n { font-size: 7.2pt; opacity: 0.6; font-weight: 700; }
+.pad b { display: block; font-size: 9.6pt; margin: 0.3mm 0 0.5mm; }
+.pad span { font-size: 7.6pt; line-height: 1.3; display: block; }
+.tone .pad { background: var(--tone-bg); } .tone.row { color: var(--tone); }
+.texture .pad { background: var(--texture-bg); } .texture.row { color: var(--texture); }
+.space .pad { background: var(--space-bg); } .space.row { color: var(--space); }
+.form .pad { background: var(--form-bg); } .form.row { color: var(--form); }
+.recipe { border-left: 2.4pt solid var(--mint); padding: 0.5mm 0 0.5mm 4mm; margin: 0 0 4.5mm; break-inside: avoid; }
+.recipe h3 { margin-top: 0; }
+.recipe .tag { font-size: 7.4pt; font-weight: 700; letter-spacing: 0.5pt; color: var(--muted); text-transform: uppercase; }
+/* cover */
+.cover { height: 297mm; background: var(--night); color: #e6f4ee; position: relative; overflow: hidden; break-after: page; }
+.cover .hero { height: 150mm; background: url(guide-img/icon.png) center/cover; position: relative; }
+.cover .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,23,25,0) 45%, rgba(10,23,25,1) 100%); }
+.cover .body { padding: 6mm 17mm 0; }
+.cover h1 { font-size: 36pt; color: #f1fbf6; margin-bottom: 2mm; }
+.cover .sub { font-size: 14pt; color: var(--mint); margin-bottom: 6mm; }
+.cover p { color: #c4ddd4; font-size: 10.6pt; max-width: 160mm; }
+.cover .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin: 6mm 0 8mm; }
+.cover .fact { border-top: 1pt solid #2c4945; padding-top: 2.5mm; }
+.cover .fact b { display: block; font-size: 20pt; color: #f1fbf6; line-height: 1; margin-bottom: 1.2mm; }
+.cover .fact span { font-size: 8.2pt; color: #9ec4b7; }
+.cover .end { position: absolute; left: 17mm; right: 17mm; bottom: 10mm; font-size: 8pt; color: #6f8f88; display: flex; justify-content: space-between; border-top: 0.6pt solid #22403b; padding-top: 2mm; }
+.small { font-size: 8.4pt; color: var(--muted); }
+section.recipesChapter .recipe { margin-bottom:3mm; }
+section.recipesChapter p { margin-bottom:1.9mm; }
+section.recipesChapter li { margin-bottom:0.7mm; }
+</style></head><body>
+
+<section class="cover">
+  <div class="hero"></div>
+  <div class="body">
+    <div class="kicker" style="color:var(--mint)">Manual · Private preview 0.32</div>
+    <h1>Mutable Dreams<br>Performance Garden</h1>
+    <div class="sub">A firmware for VIBE FM by Kid Bunka</div>
+    <p>The complete Mutable Dreams 2.1 instrument – six tracks of generative music, 271 Biomes, long dreams and a radio station – played with sixteen pads, recorded as gestures and grown into a night garden. And because the VIBE has audio inputs, the garden listens: sing into it, and it answers.</p>
+    <div class="facts">
+      <div class="fact"><b>271</b><span>Biomes in 19 families, plus 48 worlds</span></div>
+      <div class="fact"><b>50</b><span>pages, the whole engine</span></div>
+      <div class="fact"><b>16</b><span>performance pads and a gesture looper</span></div>
+      <div class="fact"><b>2</b><span>audio inputs that the garden hears</span></div>
+    </div>
+    <p style="font-size:9.4pt;color:#9ec4b7">This manual explains how to install and play the firmware, every one of its 50 pages, and many ideas for what to do with it. Version 0.32 checked in local SDK tests. The preceding 0.31 was also tested in VIBE FM VST 0.8.0 (VST3 / AU), with host caveats. This visual update still needs a new real-DAW pass; VIBE FM Mk1 hardware and CLAP testing are pending.</p>
+  </div>
+  <div class="end"><span>Kid Bunka · Mutable Dreams</span><span>Built with the VIBE FM SDK · GPL-3.0-only</span></div>
+</section>
+
+<section>
+  <div class="kicker">Contents</div>
+  <h1>What is in this manual</h1>
+  <div class="toc">
+    <div><b>New</b>The living garden in 0.32</div>
+    <div><b>1</b>Welcome</div>
+    <div><b>2</b>Getting started</div>
+    <div><b>3</b>The instrument at a glance</div>
+    <div><b>4</b>How the music is made</div>
+    <div><b>5</b>Playing the sixteen pads</div>
+    <div><b>6</b>The gesture: your hands, looped</div>
+    <div><b>7</b>Biomes, favourites, variations and worlds</div>
+    <div><b>8</b>Moments and wander</div>
+    <div><b>9</b>The garden listens: LISTEN, SING, CV</div>
+    <div><b>10</b>Page reference: all 50 pages</div>
+    <div><b>11</b>Long forms: radio, Itinera, journeys, banks</div>
+    <div><b>12</b>Recording: audio, MIDI, controllers, stems</div>
+    <div><b>13</b>The stage and the Dream Console</div>
+    <div><b>14</b>Working in a DAW</div>
+    <div><b>15</b>Controllers, grids, MIDI learn, pedal</div>
+    <div><b>16</b>Ideas and recipes</div>
+    <div><b>17</b>Troubleshooting and questions</div>
+    <div><b>18</b>Specifications, licence and credits</div>
+  </div>
+  <div class="note" style="margin-top:8mm"><b>How to read it.</b> Chapters 2 and 3 are enough to start playing. Chapters 5–9 explain the performance features one by one. Chapter 10 is a reference to look things up. Chapter 16 has recipes – complete little setups for live sets, sleep, singing, modular rigs and the studio.</div>
+  <p class="small">Names of keys and pages are printed as on the instrument: <span class="kbd">PLAY</span>, <span class="kbd">SHIFT</span>, <span class="kbd">F1</span>. “Pad 9” means the ninth of the sixteen pads (pads are numbered 1–16, left to right, top to bottom). “E1–E4” are the encoders 1–4 under the display, “A” and “B” the two big encoders.</p>
+</section>
+
+<section class="chapter">
+  <div class="kicker">New in private preview 0.32</div>
+  <h1>The living garden</h1>
+  <p class="lead">Your familiar instrument, with more life in its light and movement. The sound engine, parameter IDs, saved gardens and playing controls stay as in the reviewed 0.31.</p>
+  <figure><img src="guide-img/Stage-ruhig.png" alt="Performance Garden 0.32 with four plant-shaped macros"><figcaption>Real pixels from the 0.32 firmware. D, M, C and S grow from small buds into taller plants as their macro values rise.</figcaption></figure>
+  <h2>Try it in four steps</h2>
+  <ol class="steps"><li>Load the private firmware ZIP in VIBE FM. Open its custom Stage and select <b>GARDEN</b>. Press <b>PLAY</b>.</li><li>Change DENSITY, MOTION, COLOUR and SPACE. The four plants show the values; their numbers remain the precise reference.</li><li>Play a pad. Its glow follows the action. A decorative breath is present at rest; a latched pad is still identified by its persistent mark.</li><li>Select <b>PAGES</b> and move through SOUND, ENV, LFO, HARMONY, FX, SEQ and DREAM. A brief trail of petals accompanies a page change without delaying it. DREAM is available through MENU or the Stage's DREAM button.</li></ol>
+  <h2 style="break-before:page">A different life behind each group</h2>
+  <table><thead><tr><th>Group</th><th>Background</th></tr></thead><tbody>
+    <tr><td>SOUND</td><td>Fireflies; their number follows DENSITY.</td></tr>
+    <tr><td>ENV</td><td>Three slow breaths of warm light rising from the ground.</td></tr>
+    <tr><td>LFO</td><td>Fine wind streaks travelling on different waves.</td></tr>
+    <tr><td>HARMONY</td><td>A constellation whose stars react to the track peaks.</td></tr>
+    <tr><td>FX</td><td>Drifting mist and water rings.</td></tr>
+    <tr><td>SEQ</td><td>Sixteen lights, with the currently playing step highlighted.</td></tr>
+    <tr><td>DREAM</td><td>Aurora ribbons and occasional falling stars.</td></tr>
+  </tbody></table>
+  <figure><img src="guide-img/Stage-Alle-Seiten.png" alt="PAGES view in 0.32"><figcaption>PAGES brings the display, groups and controls together. The animated background stays behind the information.</figcaption></figure>
+  <div class="tip"><b>Light is a guide.</b> The selected group remains brighter than the resting group keys. PLAY follows the musical pulse; MENU and HOME brighten when their views are open. Unassigned soft keys remain unlit. Decorative breathing is not a new mode or an instruction to press a key.</div>
+  <div class="note"><b>Private test status.</b> Measurements are from Node/V8 on the Mac, not VIBE FM hardware. The real-device LED appearance, practical readability and final DAW acceptance still need testing. There is no new sound or effect engine in this graphics update.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 1</div>
+  <h1><span class="num">1</span>Welcome</h1>
+  <p class="lead">Mutable Dreams is an instrument that plays by itself – and that you play with. It grows music from a <b>Biome</b>: a little world of six tracks, a key, a tempo, a sound for each track and rules for how the music unfolds. You shape the world while it plays: with four macros, with sixteen pads, with gestures your hands leave behind, and with your voice.</p>
+  <h2>What makes it special</h2>
+  <ul>
+    <li><b>It is complete.</b> The firmware runs the unchanged Mutable Dreams 2.1 engine (build 2467CC38): 24 sound engines from Mutable Instruments' Plaits, Rings and Elements and Mutable Dreams' own, a step sequencer with rules and fills, chord progressions, basslines, a lo-fi drum kit, granular clouds, echo and room, LFOs, links between tracks, scene drift, long dreams, journeys and banks. All 50 pages of it are on the display.</li>
+    <li><b>It is a performance instrument.</b> Sixteen pads in four rows – tone, texture, space, form – let you play the music rather than program it. A gesture looper records what your hands do and keeps doing it.</li>
+    <li><b>It listens.</b> The FM-1 has no audio inputs; the VIBE has two. Plug in a microphone, a guitar or a synth: the garden puts your sound into its cloud, echo and room, plays along with your voice, harmonises it, answers your phrases, or lets your loudness move the music.</li>
+    <li><b>It is a picture.</b> Every Biome grows its own night garden: plants for tracks, weather for the macros, rain for your voice. On a big screen (the stage) the garden becomes the instrument's face.</li>
+    <li><b>A native Vibe, built with the VIBE FM SDK.</b> Checked in the SDK Web Player and with the VST3 / AU plugin in anyDAW Studio. VIBE FM Mk1 hardware and CLAP have not yet been tested.</li>
+  </ul>
+  <h2>A word on the name</h2>
+  <p>“Mutable” because nothing stays the same for long; “Dreams” because the music drifts like one; “Performance Garden” because this version is about playing it live, with a garden that grows out of the sound.</p>
+  <figure><img src="guide-img/Stage-ruhig.png" alt=""><figcaption>The stage: the night garden of a Biome, the four macros, the sixteen pads, favourites and transport.</figcaption></figure>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 2</div>
+  <h1><span class="num">2</span>Getting started</h1>
+  <h2>Install</h2>
+  <table>
+    <tr><th>Where</th><th>How</th></tr>
+    <tr><td class="k">VIBE FM VST (DAW)</td><td>Insert VIBE FM VST on an instrument track. Drop <code>mutable-dreams-garden.zip</code> onto the plugin window. It installs and starts. For the stems, give the plugin eight outputs (chapter 14).</td></tr>
+    <tr><td class="k">Web Player</td><td>Choose “Mutable Dreams · Performance Garden” from the firmware list, or load the <code>.wasm</code> from the zip, then click <b>Power on</b>. For REC takes, choose a folder under <b>Media</b>. For the inputs, allow the microphone when the browser asks.</td></tr>
+    <tr><td class="k">VIBE FM Mk1</td><td>Hardware testing is pending. Follow the current VIBE documentation when a device is available; this release makes no hardware installation or performance claim.</td></tr>
+  </table>
+  <h2>The first five minutes</h2>
+  <ol class="steps">
+    <li><b>Press <span class="kbd">PLAY</span>.</b> The intro fades, the garden wakes and starts a Biome. Until the first PLAY, the button breathes. (In a DAW, starting the transport does the same.)</li>
+    <li><b>Hold pad 9 BLOOM.</b> A room opens around the music. Let go and it fades with the pad tail. Press harder (on the VIBE) or higher in the pad (on the stage) for more.</li>
+    <li><b>Hold pad 5 FOREST and pad 7 WATER together.</b> Leaves and rain in the Biome's key. Pads combine freely.</li>
+    <li><b>Turn E1–E4 on the LIVE page:</b> DENSITY, MOTION, COLOUR, SPACE – the four macros that shape everything at once.</li>
+    <li><b>Tap pad 15 NEXT</b> for the next of your six favourite Biomes, or press <span class="kbd">F1</span>–<span class="kbd">F6</span> on LIVE to pick one directly.</li>
+    <li><b>Tap pad 16, play pads 5–12 for a few bars, tap 16 again.</b> What you played now loops by itself (chapter 6).</li>
+    <li><b>Press <span class="kbd">HOME</span></b> on any page: it explains every key, encoder and pad there. <span class="kbd">HOME</span> again closes it.</li>
+  </ol>
+  <h2>FIRST STEPS – the guided tour</h2>
+  <p>At the very first start, FIRST STEPS opens by itself: eight short cards, each moves on as soon as you have done what it says – press PLAY, hold BLOOM, turn a macro, tap NEXT, loop a gesture, open the MENU, switch the input on. On the stage the pad to press glows; in the MENU the current instruction stands in gold at the bottom. <span class="kbd">HOME</span> ends the tour at any time. Start it again with <span class="kbd">F1</span> TOUR on the SYSTEM page, the <b>?</b> on the stage or the <b>?</b> in the Dream Console. The tour is remembered: a known garden starts without it.</p>
+  <figure style="max-width:120mm"><img src="guide-img/Display-TOUR.png" alt=""><figcaption>FIRST STEPS on the display: the card, the steps as seeds, “HOME: end tour”.</figcaption></figure>
+  <div class="tip"><b>Help is always one key away.</b> Hold any F key for half a second: instead of acting, it opens the page's help and says what that key does. Let go – nothing else happens.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 3</div>
+  <h1><span class="num">3</span>The instrument at a glance</h1>
+  <p class="lead">The display always shows the whole instrument. The stage and the Dream Console are bigger faces of the same controls – nothing lives only there.</p>
+  <figure style="max-width:125mm"><img src="guide-img/Display-LIVE.png" alt=""><figcaption>The LIVE page.</figcaption></figure>
+  <h2>Reading the display</h2>
+  <table>
+    <tr><th>Part</th><th>What it shows</th></tr>
+    <tr><td class="k">Header</td><td>The page name, dots for the pages of its group with “n/m”, and on the right the status: PLAYING / STOPPED with the selected track, ON AIR, a REC timer, or a short message after an action.</td></tr>
+    <tr><td class="k">Tabs</td><td>The six groups SOUND · ENV · LFO · HARMONY · FX · SEQ; the group of the open page is filled with its colour. DREAM pages (radio, journeys, banks, MIDI, CV) show a line in their colour under the tabs.</td></tr>
+    <tr><td class="k">Value cells</td><td>The four values that encoders E1–E4 change on this page, with a meter for continuous values.</td></tr>
+    <tr><td class="k">Picture</td><td>What the page does, drawn: the garden on LIVE, an envelope on ENVELOPE, the echo cave on SPACE, the step grid on SEQ GRID …</td></tr>
+    <tr><td class="k">Caption</td><td>One line with the page's hint or the current state.</td></tr>
+    <tr><td class="k">Soft keys</td><td>What <span class="kbd">F1</span>–<span class="kbd">F6</span> do here. Filled = active. A key with a slash mark is assigned but unavailable right now; an empty place has no job on this page.</td></tr>
+  </table>
+  <h2>The controls</h2>
+  <table>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td class="k">Keys (25)</td><td>Play the selected track in the Biome's key. MIDI notes and the DAW's notes do the same. <span class="kbd">OCT −</span> / <span class="kbd">OCT +</span> move the keyboard.</td></tr>
+    <tr><td class="k">Pads 1–16</td><td>The performance (chapter 5). <span class="kbd">SHIFT</span> + pad latches pads 1–14.</td></tr>
+    <tr><td class="k">E1–E4</td><td>The four values at the top of the open page.</td></tr>
+    <tr><td class="k">A · B</td><td>Texture depth and space depth: how strongly pads 5–8 and 9–12 act – on every page.</td></tr>
+    <tr><td class="k">DATA + ENTER</td><td>FOCUS: walk to any control on the display with DATA and change it; ENTER presses it. In the MENU, DATA chooses a page.</td></tr>
+    <tr><td class="k">F1–F6</td><td>The soft keys. On most sound pages they select tracks T1–T6. They act when you let go; held, they explain themselves.</td></tr>
+    <tr><td class="k">SOUND … SEQ</td><td>The six keys right of ENTER open their group; pressing the same key again moves to the group's next page. Each group remembers its last page.</td></tr>
+    <tr><td class="k">MENU · ◀ ▶</td><td>MENU: all 50 pages in a directory (two banks of 36). ◀ ▶: previous / next page.</td></tr>
+    <tr><td class="k">HOME</td><td>Tapped: the help for the open page (two pages, ◀ ▶ turn them). Held one second, or SHIFT + HOME: the VIBE's firmware library.</td></tr>
+    <tr><td class="k">RETURN</td><td>Back to LIVE. <span class="kbd">SHIFT</span> + <span class="kbd">RETURN</span>: undo the last variation or sequencer tool.</td></tr>
+    <tr><td class="k">PLAY · STOP · REC</td><td>Transport. STOP also releases the pads and ends a radio broadcast. REC records an audio take (chapter 12).</td></tr>
+    <tr><td class="k">Pedal</td><td>Footswitch = pad 16 (gesture). Expression pedal = space depth.</td></tr>
+  </table>
+  <h2>Finding your way</h2>
+  <div class="two">
+    <div class="card"><h3>By group</h3><p>The six coloured keys are the fastest way: <b>SOUND</b> (Biome, voices, mix) · <b>ENV</b> (envelope, filter) · <b>LFO</b> (modulation, links, drift) · <b>HARMONY</b> (key, chords, bass) · <b>FX</b> (pads, effects, the inputs) · <b>SEQ</b> (rhythm, sequencer, kit).</p></div>
+    <div class="card"><h3>By name</h3><p><span class="kbd">MENU</span> lists every page. Turn E1 or DATA, press <span class="kbd">ENTER</span> (or <span class="kbd">F1</span>). <span class="kbd">MENU</span> or <span class="kbd">RETURN</span> closes it. While the menu is open, nothing acts blind on the page below.</p></div>
+  </div>
+  <div class="note"><b>Tracks.</b> Most sound pages edit the <b>selected track</b>. Choose it with <span class="kbd">F1</span>–<span class="kbd">F6</span> (T1–T6); the header shows it. When the drum kit is on, track 4 plays the kit and tracks 5 and 6 rest – their keys show as unavailable.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 4</div>
+  <h1><span class="num">4</span>How the music is made</h1>
+  <p class="lead">A short picture of the engine helps to know which knob to reach for.</p>
+  <div class="two">
+    <div>
+      <h3>The Biome</h3>
+      <p>A Biome sets everything at once: key and scale, tempo, which of the 24 sound engines each of the six tracks uses, their levels and effects, the rhythm of each track, chords, bass, kit, and the seed of its randomness. 271 Biomes in 19 families come with the firmware.</p>
+      <h3>Six tracks</h3>
+      <p>Each track is a voice with an engine (Plaits FM, Rings modal, Elements strike, velvet keys, spectral bloom, felt mallet …), an envelope and filter, modulation (Marbles, Tides, Warps, two LFOs) and its own rhythm. A Euclidean rhythm, a step sequence or a generator decides when it plays; the harmony decides which notes.</p>
+      <h3>Three effects</h3>
+      <p>Every track sends to the <b>cloud</b> (a granular tape), the <b>echo</b> and the <b>room</b>. The FX return brings them back. The texture and space pads play these effects directly.</p>
+    </div>
+    <div>
+      <h3>Four macros</h3>
+      <table>
+        <tr><td class="k">DENSITY</td><td>How many notes: from sparse to busy.</td></tr>
+        <tr><td class="k">MOTION</td><td>How much moves: modulation and variation.</td></tr>
+        <tr><td class="k">COLOUR</td><td>Brightness and timbre.</td></tr>
+        <tr><td class="k">SPACE</td><td>Distance: effects, air and tail.</td></tr>
+      </table>
+      <p>The macros sit on LIVE (E1–E4), on the stage as sliders, in the Dream Console as knobs and in the DAW as parameters. In the garden they are the weather: DENSITY brings fireflies, MOTION wind, COLOUR the glow, SPACE mist on the pond.</p>
+      <h3>Variation and undo</h3>
+      <p><span class="kbd">SHIFT</span> + pad 15 seeds the same Biome anew – different melodies and rhythms in the same world. <span class="kbd">SHIFT</span> + <span class="kbd">RETURN</span> takes it back.</p>
+      <h3>Nothing to break</h3>
+      <p>Everything you change is saved with the DAW project or on the VIBE; sixteen bank slots keep whole projects. Loading a Biome again restores its original state.</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 5</div>
+  <h1><span class="num">5</span>Playing the sixteen pads</h1>
+  <p class="lead">Four rows, four ways to play. All pads are velocity-sensitive, combine freely and fade out with the pad tail when you let go.</p>
+  <div class="padmap">
+    <div class="row tone">TONE<small>pads 1–4</small></div>
+    <div class="tone"><div class="pad"><span class="n">1</span><b>ROOT</b><span>the root, on the tone track</span></div></div>
+    <div class="tone"><div class="pad"><span class="n">2</span><b>FIFTH</b><span>the fifth, in key</span></div></div>
+    <div class="tone"><div class="pad"><span class="n">3</span><b>THIRD</b><span>the third of the scale</span></div></div>
+    <div class="tone"><div class="pad"><span class="n">4</span><b>NINTH</b><span>an open colour</span></div></div>
+    <div class="row texture">TEXTURE<small>pads 5–8</small></div>
+    <div class="texture"><div class="pad"><span class="n">5</span><b>FOREST</b><span>leaves in gusts</span></div></div>
+    <div class="texture"><div class="pad"><span class="n">6</span><b>AIR</b><span>breathing air</span></div></div>
+    <div class="texture"><div class="pad"><span class="n">7</span><b>WATER</b><span>murmur and drops</span></div></div>
+    <div class="texture"><div class="pad"><span class="n">8</span><b>STARDUST</b><span>sparks in the Biome's key</span></div></div>
+    <div class="row space">SPACE<small>pads 9–12</small></div>
+    <div class="space"><div class="pad"><span class="n">9</span><b>BLOOM</b><span>the room opens</span></div></div>
+    <div class="space"><div class="pad"><span class="n">10</span><b>ECHO</b><span>repeats grow</span></div></div>
+    <div class="space"><div class="pad"><span class="n">11</span><b>GRAIN</b><span>granular dust</span></div></div>
+    <div class="space"><div class="pad"><span class="n">12</span><b>DUSK</b><span>the sound darkens</span></div></div>
+    <div class="row form">FORM<small>pads 13–16</small></div>
+    <div class="form"><div class="pad"><span class="n">13</span><b>THIN</b><span>one to three tracks rest</span></div></div>
+    <div class="form"><div class="pad"><span class="n">14</span><b>PULSE</b><span>breath on the eighths</span></div></div>
+    <div class="form"><div class="pad"><span class="n">15</span><b>NEXT</b><span>next favourite · SHIFT: variation</span></div></div>
+    <div class="form"><div class="pad"><span class="n">16</span><b>GESTURE</b><span>capture · loop · stop · SHIFT: layer</span></div></div>
+  </div>
+  <h2>Tone pads 1–4</h2>
+  <p>They play notes of the Biome's key on one track: by default the selected one; choose another with E4 on the PADS page (“Tone pads play”). Three tone modes (<span class="kbd">SHIFT</span> + E1 on PADS): <b>Note</b> – one note per pad; <b>Chord</b> – a chord of the scale on the pad's degree; <b>Arpeggio</b> – that chord in time with the clock. Hold several tone pads for a richer chord.</p>
+  <h2>Texture pads 5–8 and space pads 9–12</h2>
+  <p>Four textures of nature – forest, air and water as sounds of their own, stardust as sparks in the Biome's key – and four ways to open the space. How hard you press is how deep they go; encoders <b>A</b> and <b>B</b> scale the whole row (texture depth, space depth) on every page. The gesture recorder records exactly these eight pads.</p>
+  <h2>Form pads 13–16</h2>
+  <ul>
+    <li><b>THIN</b> lets one to three tracks rest while held – a breakdown under your finger.</li>
+    <li><b>PULSE</b> makes the whole mix breathe on the eighths, in time.</li>
+    <li><b>NEXT</b> moves to the next of your six favourite Biomes; the gesture and latched pads keep going. <span class="kbd">SHIFT</span> + NEXT plays a new variation of the same Biome.</li>
+    <li><b>GESTURE</b> is the loop recorder for your hands (chapter 6).</li>
+  </ul>
+  <h2>Latch, tail and depth</h2>
+  <table>
+    <tr><td class="k">Latch</td><td><span class="kbd">SHIFT</span> + pad holds pads 1–14 on (a white dot shows it); the same again lets go. On the stage and in the Dream Console: right-click or shift-click. Both hands stay free.</td></tr>
+    <tr><td class="k">Pad tail</td><td>How long a pad fades after you let go: E1 on PADS, 0.05–6 s.</td></tr>
+    <tr><td class="k">Depth</td><td>Encoders A / B, the expression pedal (space) or the DAW parameters “Texture depth” and “Space depth”.</td></tr>
+  </table>
+  <figure style="max-width:125mm"><img src="guide-img/Display-PERFORM.png" alt=""><figcaption>PERFORM (FX group): the pads, live, with the sends and FX return on E1–E4.</figcaption></figure>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 6</div>
+  <h1><span class="num">6</span>The gesture: your hands, looped</h1>
+  <p class="lead">The gesture recorder captures what you do on the texture and space pads (5–12) and plays it back in a loop – so the garden keeps moving the way you moved it while your hands are free for the tone pads, the keys, the encoders or a cup of tea. It records movement, not audio.</p>
+  <ol class="steps">
+    <li><b>Tap pad 16.</b> The gesture is ready. With “Gesture start: next bar” (E3 on PADS) it shows WAIT until the bar begins.</li>
+    <li><b>Play pads 5–12:</b> press, hold, fade, combine. The display says CAPTURING PADS 5-12, the pad shows how much of the 4 or 8 bars is filled.</li>
+    <li><b>The loop starts</b> after 4 or 8 bars (E2 on PADS) – or as soon as you tap 16 again. GESTURE LOOPS: your moves repeat. Play on top: the stronger of hand and loop wins.</li>
+    <li><b>Layer:</b> <span class="kbd">SHIFT</span> + 16 while it loops adds one more turn on top, at the loop's own speed.</li>
+    <li><b>Stop:</b> tap 16. GESTURE STOPPED.</li>
+  </ol>
+  <figure style="max-width:150mm;margin-left:auto;margin-right:auto"><img src="guide-img/Stage-Geste-Schleife.png" alt=""><figcaption>On the stage the lanes show the last seconds: bright = your hands now, the returning gesture underneath.</figcaption></figure>
+  <table>
+    <tr><td class="k">Length</td><td>4 or 8 bars – E2 on PADS, DAW parameter “Gesture length”.</td></tr>
+    <tr><td class="k">Start</td><td>Free or on the next bar – E3 on PADS, “Gesture start”.</td></tr>
+    <tr><td class="k">Playback</td><td><span class="kbd">SHIFT</span> + E2 on PADS: half speed, normal, double, reverse (LOOP /2, LOOP x2, LOOP REV).</td></tr>
+    <tr><td class="k">Elsewhere</td><td>The footswitch, the Dream Console (CAPTURE · LOOP IT · STOP · LAYER) and the plugin's GESTURE card do the same.</td></tr>
+    <tr><td class="k">Saved</td><td>A looping gesture is saved with the project and keeps looping after a reload.</td></tr>
+  </table>
+  <div class="tip"><b>Tip.</b> If you tap 16 and play nothing, the display says NOTHING CAPTURED. Gestures stay when you change Biomes with NEXT – a good way to carry a movement from one world into the next.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 7</div>
+  <h1><span class="num">7</span>Biomes, favourites, variations and worlds</h1>
+  <div class="two">
+    <figure><img src="guide-img/Display-BROWSER.png" alt=""><figcaption>BROWSER: family on E1, Biome on E2, F1 loads.</figcaption></figure>
+    <figure><img src="guide-img/Display-WORLDS.png" alt=""><figcaption>BROWSER F5: Kid Bunka's 48 worlds.</figcaption></figure>
+  </div>
+  <table>
+    <tr><th>To …</th><th>do this</th></tr>
+    <tr><td class="k">play a favourite</td><td>LIVE: <span class="kbd">F1</span>–<span class="kbd">F6</span>. Also the stage chips, the Dream Console and the DAW parameter “Biome”.</td></tr>
+    <tr><td class="k">go to the next one</td><td>Pad 15 NEXT cycles through the six favourites.</td></tr>
+    <tr><td class="k">hear a new variation</td><td><span class="kbd">SHIFT</span> + pad 15; <span class="kbd">SHIFT</span> + <span class="kbd">RETURN</span> undoes it.</td></tr>
+    <tr><td class="k">find any of the 271</td><td>BROWSER: E1 family, E2 Biome (or F2 PREV / F3 NEXT, F4 next family), <span class="kbd">F1</span> LOAD. The Dream Console's library adds search, sorting and SURPRISE ME.</td></tr>
+    <tr><td class="k">store a favourite</td><td>BROWSER: <span class="kbd">SHIFT</span> + <span class="kbd">F1</span>–<span class="kbd">F6</span> puts the Biome on that favourite. Dream Console: ☆.</td></tr>
+    <tr><td class="k">pick one from a DAW</td><td>Program Change on MIDI channel 16 (bank select CC 0 for places above 128). In VIBE FM VST 0.8.0 with the anyDAW Studio 0.3.61 plugin host, Program Change worked through AU and did not reach the firmware through VST3; use the DAW parameter “Biome” in that host.</td></tr>
+  </table>
+  <p><b>The 19 families:</b> Mist, Drone, Resonance, Techno, Broken, Organic, Percussion, Melody, Lo-Fi, Bowed, Dub, Hand &amp; Clay, Grain Worlds, Felt &amp; Clay, Silk &amp; Air, Copper, Vowels &amp; Air, Soft Terrains, Quiet Habitats.</p>
+  <h2>Worlds</h2>
+  <p>A world is a Biome dressed by Kid Bunka: its tempo, the four macros, engine settings (mutes, levels, effects) and the texture / space lanes set – the same 48 worlds as Mutable Dreams on the Trimui Brick and the MPC. On BROWSER press <span class="kbd">F5</span> WORLDS: <span class="kbd">F1</span> ENTER, <span class="kbd">F2</span> / <span class="kbd">F3</span> or E2 step, <span class="kbd">F4</span> or E1 the family, <span class="kbd">F5</span> back to the Biomes. E3 WANDER: after 5, 10 or 20 minutes the next world of the family comes by itself.</p>
+  <p><b>The eight world families:</b> Gardens Of Number, Bells And Resonance, Drones And Overtones, Rain And Water, Night Choirs, Endless, Voices And Poems, Machines And Automata.</p>
+  <h2>The night garden</h2>
+  <p>Each Biome has its own sky, land and sign; each track is a plant of its sound's species (ferns for FM, bells for resonators, mushrooms for drums …). The pads add their own: FOREST gusts, AIR veils, WATER rain, STARDUST sparks, BLOOM light, ECHO rings, GRAIN spores, DUSK the falling dark. The moon crosses the sky with the bars.</p>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 8</div>
+  <h1><span class="num">8</span>Moments and wander</h1>
+  <p class="lead">The PADS page (press <span class="kbd">FX</span> twice, or FX on PERFORM) holds the pad settings and six moments – snapshots of how your hands shape the garden.</p>
+  <figure style="max-width:125mm"><img src="guide-img/Display-Momente.png" alt=""><figcaption>PADS: the moments M1–M6 on F1–F6.</figcaption></figure>
+  <div class="two">
+    <div class="card"><h3>Moments</h3><ul>
+      <li><span class="kbd">SHIFT</span> + <span class="kbd">F1</span>–<span class="kbd">F6</span> stores what sounds now: the eight texture and space lanes, PULSE and both depths.</li>
+      <li><span class="kbd">F1</span>–<span class="kbd">F6</span> glides there; the same key again glides back out.</li>
+      <li>A stored moment has a light on its key. Dream Console: click recalls, shift-click stores. DAW: parameter “Moment”.</li></ul></div>
+    <div class="card"><h3>Wander</h3><p>When your hands rest (no pad held, no gesture looping), WANDER gently moves the texture and space pads by itself – an evolving performance without anyone playing. It works on its own, independent of the moments. Switch it with <span class="kbd">SHIFT</span> + E3 on PADS, the DAW parameter “Wander” or the switch in the Dream Console.</p></div>
+  </div>
+  <h2>The PADS encoders</h2>
+  <table>
+    <tr><th>Encoder</th><th>Alone</th><th>With SHIFT</th></tr>
+    <tr><td class="k">E1</td><td>Pad tail (0.05–6 s)</td><td>Tone mode: note, chord, arpeggio</td></tr>
+    <tr><td class="k">E2</td><td>Gesture length: 4 or 8 bars</td><td>Gesture playback: half, normal, double, reverse</td></tr>
+    <tr><td class="k">E3</td><td>Gesture start: free or next bar</td><td>Wander on / off</td></tr>
+    <tr><td class="k">E4</td><td>Tone pads play: selected track or T1–T6</td><td>Performance as MIDI CC (CC 20–28)</td></tr>
+  </table>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 9 · only on the VIBE</div>
+  <h1><span class="num">9</span>The garden listens: LISTEN, SING, CV</h1>
+  <p class="lead">The VIBE has two audio inputs and CV jacks. Mutable Dreams uses them: the garden puts your sound into its own effects, follows and answers your voice, lets your loudness move the music, and plays along with a modular synthesizer.</p>
+  <h2>LISTEN – your sound in the garden's effects</h2>
+  <div class="two">
+    <figure><img src="guide-img/Display-LISTEN.png" alt=""><figcaption>LISTEN: the moon pond. The input falls as rain; three streams carry it to the cloud, echo and room.</figcaption></figure>
+    <div>
+      <table>
+        <tr><td class="k">F1 INPUT</td><td>IN 1 / IN 2 on or off. (The Web Player asks once for the microphone.)</td></tr>
+        <tr><td class="k">F2</td><td>LINE, MIC or HI-Z (guitar).</td></tr>
+        <tr><td class="k">F3</td><td>MONO (IN 1) or STEREO (IN 1 + 2).</td></tr>
+        <tr><td class="k">F4 HOLD</td><td>Freezes the cloud with your sound inside – play over it.</td></tr>
+        <tr><td class="k">F5 MOVES</td><td>Your loudness lifts a macro: DENSITY, MOTION, COLOUR, SPACE or off.</td></tr>
+        <tr><td class="k">E1–E4</td><td>THROUGH (your dry sound), CLOUD, ECHO, ROOM.</td></tr>
+      </table>
+    </div>
+  </div>
+  <p>A soft ceiling keeps loud inputs from clipping. REC records what you hear, your dry sound included. When the input is switched off, the dry sound glides out instead of stopping hard.</p>
+  <h2>SING – the garden answers your voice</h2>
+  <div class="two">
+    <figure><img src="guide-img/Display-SING.png" alt=""><figcaption>SING in ANSWER: your phrase as seeds on its contour; GARDEN REPLY while the garden sings back.</figcaption></figure>
+    <div>
+      <table>
+        <tr><td class="k">F1 OFF</td><td>The garden stops answering.</td></tr>
+        <tr><td class="k">F2 FOLLOW</td><td>The chosen track plays the note you sing, in the Biome's scale.</td></tr>
+        <tr><td class="k">F3 HARMONY</td><td>A third or a fifth above you.</td></tr>
+        <tr><td class="k">F4 ANSWER</td><td>Sing a phrase and stop: after a beat of silence the garden sings it back, a little changed – every other answer runs backwards.</td></tr>
+        <tr><td class="k">F5 KEY</td><td>Sing one note: it becomes the Biome's key.</td></tr>
+        <tr><td class="k">E1–E4</td><td>TRACK that sings, OCTAVE, SENSE (how easily a note is heard), DUCK (the music steps back while you sing).</td></tr>
+      </table>
+    </div>
+  </div>
+  <p>The page shows the note you sing with a cents needle, and in ANSWER mode whose turn it is: <b>YOUR CALL</b> while you sing, <b>LISTENING…</b> with a bar filling up during the beat of silence, <b>GARDEN REPLY</b> while it answers. Singing again interrupts the reply. Choosing FOLLOW, HARMONY, ANSWER or KEY switches the input on by itself.</p>
+  <h2>CV GATE – a modular plays along</h2>
+  <figure style="max-width:125mm"><img src="guide-img/Display-CV.png" alt=""><figcaption>CV GATE: the jacks, the note on a little keyboard.</figcaption></figure>
+  <ul>
+    <li><b>CV OUT / GATE OUT</b> follow a track: choose it with <span class="kbd">F1</span>–<span class="kbd">F6</span> (again: off) or E1. C2 = 0 V, 1 V per octave, 0–5 V; E2 shifts the octave, E3 sets the gate length (5–1000 ms). LIMIT appears when a note does not fit into 0–5 V.</li>
+    <li><b>CV IN</b> moves DENSITY, MOTION, COLOUR or SPACE (E4): 0–5 V is 0–100 %. The page shows the voltage and how far it moves the macro. GATE OUT glows while open.</li>
+  </ul>
+  <div class="note"><b>Feedback.</b> With a microphone near the speakers, start with THROUGH low and ECHO moderate, or use headphones. DUCK on SING lets the garden step back while you sing.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 10</div>
+  <h1><span class="num">10</span>Page reference: all 50 pages</h1>
+  <p class="lead">For every page: what it is for, encoders E1–E4, and the soft keys. Where it says “T1–T6”, <span class="kbd">F1</span>–<span class="kbd">F6</span> select the track the page edits.</p>
+
+  <h2><span class="grp" style="background:#83d2a6"></span>SOUND</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>LIVE</td><td>DENSITY · MOTION · COLOUR · SPACE</td><td>F1–F6: favourite Biomes. The garden of the Biome.</td></tr>
+    <tr><td>BROWSER</td><td>FAMILY · BIOME (worlds: FAMILY · WORLD · WANDER)</td><td>LOAD · PREV · NEXT · FAMILY · WORLDS. SHIFT + F1–F6 stores a favourite.</td></tr>
+    <tr><td>VOICE</td><td>TONE PRESET · ENGINE · LEVEL · MUTE</td><td>T1–T6. Tone presets dress an engine; “Biome voice” keeps the Biome's own.</td></tr>
+    <tr><td>ENGINE</td><td>TONE · HARMONICS · SHAPE (or DECAY) · LEVEL</td><td>T1–T6. SHAPE on engines with an envelope, DECAY on percussive ones.</td></tr>
+    <tr><td>MIX</td><td>CLOUD SEND · NOTE · PAN · DIVISION</td><td>T1–T6. NOTE = the track's base note; DIVISION = its clock (/1 … /8).</td></tr>
+    <tr><td>MIXER</td><td>LEVEL · CLOUD · ECHO · ROOM</td><td>T1–T6. All six tracks' levels and sends at a glance.</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#e2aa78"></span>ENV</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>ENVELOPE</td><td>ATTACK · DECAY · LEVEL · CLOUD SEND</td><td>T1–T6. Attack up to 8 s, decay up to 16 s.</td></tr>
+    <tr><td>FILTER</td><td>CUTOFF · RESONANCE · TYPE · BREATHE</td><td>T1–T6. Types OFF, LP12, LP24, LPG; BREATHE = slow movement of the colour.</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#90cbbf"></span>LFO</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>MODULATION</td><td>MARBLES · TIDES · TIDE RATE · WARPS</td><td>T1–T6. Marbles = random variation, Tides = the slow LFO (also LFO A), Warps = crossmod colour.</td></tr>
+    <tr><td>LFO A</td><td>TARGET · WAVE · DEPTH · RATE</td><td>T1–T6. Where Tides moves (filter, colour, pan, grain send, FX sends, warps, soft swell); waves triangle, sine, bloom, sigh. DEPTH / RATE are the same values as TIDES / TIDE RATE.</td></tr>
+    <tr><td>LFO B</td><td>TARGET · WAVE · DEPTH · RATE</td><td>T1–T6. A second, independent LFO.</td></tr>
+    <tr><td>LINKS</td><td>LINK · FROM · TO · MOVES</td><td>T1–T6. One track moves another: its cutoff, colour, pan, grain send, FX sends or probability.</td></tr>
+    <tr><td>LINK MOTION</td><td>LINK · SIGNAL · DEPTH · RELEASE</td><td>T1–T6. The link's signal: hit, envelope, LFO A, LFO B; depth ±; release.</td></tr>
+    <tr><td>DRIFT</td><td>DRIFT · POSITION · RATE · DEPTH</td><td>T1–T6. DRIFT OFF / HOLD (stay at POSITION) / FLOW (glide by itself; RATE sets how long one glide takes – 0 is about five seconds, 100 several minutes). Needs scenes A and B – otherwise it says CAPTURE SCENES A + B FIRST.</td></tr>
+    <tr><td>DRIFT SCENES</td><td>– · – · DEPTH · DRIFT</td><td>F1 SCENE A, F2 SCENE B: capture the macros and track settings now (while drift is off).</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#b4b8eb"></span>HARMONY</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>HARMONY</td><td>ROOT · SCALE · TRANSPOSE · TEMPO</td><td>T1–T6. 13 scales from chromatic to double harmonic major; transpose ±24.</td></tr>
+    <tr><td>PROGRESSION</td><td>CHORDS · BARS · FOLLOW · VOICING</td><td>T1–T6. Chord patterns (I-IV-I-V, Dusk, Lanterns, Tidal, Still Water …), bars per chord, which tracks follow, voicing.</td></tr>
+    <tr><td>BASSLINE</td><td>MODE · MOTIF · GLIDE · NOTE</td><td>T1–T6. Bass OFF, EUCLID or STEP; 16 motifs; glide; base note.</td></tr>
+    <tr><td>PHRASE</td><td>STEP · SEMITONES · ACCENT · CHANCE</td><td>T1–T6. The sixteen bass steps one by one.</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#85c7de"></span>FX</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>PERFORM</td><td>ROOM SEND · ECHO SEND · CLOUD SEND · FX RETURN</td><td>T1–T6. The pads, live. FX again opens PADS.</td></tr>
+    <tr><td>PADS</td><td>TAIL · GESTURE · START · TONE PADS (SHIFT: TONE MODE · PLAYBACK · WANDER · MIDI CC OUT)</td><td>F1–F6 moments M1–M6; SHIFT + F stores.</td></tr>
+    <tr><td>SPACE</td><td>ECHO TIME · FEEDBACK · ROOM TAIL · RETURN</td><td>T1–T6. The echo cave.</td></tr>
+    <tr><td>GRAIN</td><td>MIX · SIZE · POSITION · FEEDBACK</td><td>T1–T6. The granular bus – the spore meadow.</td></tr>
+    <tr><td>CLOUD</td><td>AIR · MIX · TRACK SEND · FREEZE</td><td>T1–T6. Air in the grains, freeze holds the cloud.</td></tr>
+    <tr><td>TAPE</td><td>GRAIN PITCH · DIRECTION · DUCK SOURCE · DUCK</td><td>T1–T6. Pitch and direction of the grains, ducking by a track.</td></tr>
+    <tr><td>LISTEN</td><td>THROUGH · CLOUD · ECHO · ROOM</td><td>INPUT · LINE/MIC/HI-Z · MONO/STEREO · HOLD · MOVES (chapter 9).</td></tr>
+    <tr><td>SING</td><td>TRACK · OCTAVE · SENSE · DUCK</td><td>OFF · FOLLOW · HARMONY · ANSWER · KEY (chapter 9).</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#f0cb86"></span>SEQ</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>RHYTHM</td><td>HITS · LENGTH · ROTATE · CHANCE</td><td>T1–T6. Euclidean rhythm of the track.</td></tr>
+    <tr><td>GROOVE</td><td>SWING · REPEATS · ACCENT · DIVISION</td><td>T1–T6. Swing for all; repeats (ratchets) and accent per track.</td></tr>
+    <tr><td>SEQUENCE</td><td>SEQUENCE · STEP · NOTE · LENGTH</td><td>T1–T6. Switch the step sequence on, edit steps and length.</td></tr>
+    <tr><td>STEP</td><td>VELOCITY · GATE · CHANCE · GENERATE</td><td>T1–T6. The step's details; generators sparse, arp, pulse, drift, petals, tideline, stars, answers.</td></tr>
+    <tr><td>FLOW</td><td>DIRECTION · SHIFT · FEEL · GENERATE</td><td>T1–T6. Forward, reverse, pendulum, orbit, seeded.</td></tr>
+    <tr><td>SEQ GRID</td><td>TRACK · STEP · NOTE (PAD for the kit) · LENGTH</td><td>T1–T6. All six tracks step by step. The letter after a track: S = its own step sequence, G = a generator plays it, K = the kit.</td></tr>
+    <tr><td>SEQ TOOLS</td><td>SCOPE · STEP · AMOUNT · SHIFT st (ACTION)</td><td>F1 APPLY, F2 UNDO: copy, paste, transpose, reverse, accent, articulate.</td></tr>
+    <tr><td>SEQ RULES</td><td>TRACK · STEP · RULE · NOTE</td><td>F1 FILL (while playing), F2 UNDO. Rules: always, first cycle, every 2nd, fill only.</td></tr>
+    <tr><td>KIT</td><td>KIT · BANK · PAD · HISS</td><td>T1–T6. Lo-fi kit on track 4 (tracks 5–6 rest). Banks Dust Room, Paper Machines, Soft Static, Found Objects, Velour Tape.</td></tr>
+    <tr><td>KIT PAD</td><td>TUNE · LEVEL · CUTOFF · DECAY</td><td>T1–T6. Eight kit sounds: pillow kick, brush snare, dust hat, wood knock, tiny click, tape hiss, crackle, air texture.</td></tr>
+    <tr><td>KIT SEND</td><td>PAD · CLOUD · ECHO · ROOM</td><td>T1–T6. Effect sends per kit sound.</td></tr>
+    <tr><td>KIT SEQ</td><td>STEP · GATE · LENGTH · GENERATE</td><td>T1–T6. The kit's steps.</td></tr>
+  </table>
+  <h2><span class="grp" style="background:#d6a7e0"></span>DREAM (via MENU)</h2>
+  <table class="ref">
+    <tr><th>Page</th><th>E1 · E2 · E3 · E4</th><th>F keys and notes</th></tr>
+    <tr><td>RADIO</td><td>BROADCAST · PIECES · ITINERA · AT START</td><td>ON AIR · SKIP · OFF AIR · ID CHIME (chapter 11).</td></tr>
+    <tr><td>ITINERA</td><td>DREAM · LENGTH · PACE · HALL</td><td>START (with the transport stopped) · STOP.</td></tr>
+    <tr><td>JOURNEY</td><td>JOURNEY · SECTION · BIOME · SECTIONS</td><td>T1–T6. OFF, ONCE or LOOP through up to eight sections.</td></tr>
+    <tr><td>JOURNEY TIME</td><td>SECTION · BARS · REPEATS · TRANSPOSE</td><td>T1–T6.</td></tr>
+    <tr><td>JOURNEY KEEP</td><td>SECTION · TRACK · KEEP · JOURNEY</td><td>T1–T6. KEEP: whether this track keeps playing its part from the previous section (KEEP) or takes the new section’s Biome (CHANGE).</td></tr>
+    <tr><td>BANKS</td><td>SLOT · – · – · REC TAKE</td><td>SAVE · LOAD. Sixteen project slots; REC take length 30–120 s.</td></tr>
+    <tr><td>SYSTEM</td><td>TEMPO · QUALITY · DUCK RECOVERY · TOUCH</td><td>F1 TOUR (FIRST STEPS). ECO / FULL quality; stems status; touch = velocity response.</td></tr>
+    <tr><td>MIDI</td><td>CLOCK · SCALE SNAP · CHANNEL · MACRO CC</td><td>F1 NOTES OUT (Dream as MIDI) · F2 SONG POS (follow the DAW). CLOCK: internal, USB, TRS or BLE. SCALE SNAP pulls incoming notes into the Biome’s scale. CHANNEL routes the selected track to a MIDI channel. MACRO CC lets CCs move the macros.</td></tr>
+    <tr><td>MIDI LEARN</td><td>SLOT · TARGET · TRACK · LEARN</td><td>PREV · NEXT · LEARN · CLEAR (chapter 15).</td></tr>
+    <tr><td>MIDI MAP</td><td>PORT · CHANNEL · CC · ACTIVE</td><td>PREV · NEXT · LEARN · CLEAR.</td></tr>
+    <tr><td>CV GATE</td><td>CV TRACK · OCTAVE · GATE · CV IN</td><td>F1–F6: the CV track (again: off) (chapter 9).</td></tr>
+  </table>
+  <div class="note"><b>Shared values.</b> Some values appear on more than one page because they belong to more than one job – the cloud send of a track (MIX, MIXER, ENVELOPE, PERFORM), its level (VOICE, ENGINE, ENVELOPE, MIXER), accent and chance (GROOVE, PHRASE, RHYTHM), the tempo (HARMONY, SYSTEM), Tides (MODULATION, LFO A). Turning it on one page changes it everywhere.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 11</div>
+  <h1><span class="num">11</span>Long forms: radio, Itinera, journeys, banks</h1>
+  <h2>Mutable Dreams FM – a radio station inside the instrument</h2>
+  <figure><img src="guide-img/Stage-On-Air.png" alt=""><figcaption>On air: the station's line shows the piece's character and the time left.</figcaption></figure>
+  <p>ON AIR turns the instrument into its own station: an endless programme in editions of four pieces, each with its own character, tempo and a new Biome. After six calm minutes at the latest comes a groove; every four hours a 30-minute Itinera dream (if ITINERA is on). An optional station chime – root, fifth and octave – marks the pieces. You can play along on every pad while it runs.</p>
+  <table>
+    <tr><td class="k">RADIO keys</td><td><span class="kbd">F1</span> ON AIR · <span class="kbd">F2</span> SKIP · <span class="kbd">F3</span> OFF AIR · <span class="kbd">F4</span> ID CHIME. <span class="kbd">STOP</span> always ends the broadcast.</td></tr>
+    <tr><td class="k">Encoders</td><td>Broadcast on/off, piece length (short / radio / long), Itinera dreams on/off, AT START (on air as soon as the instrument starts).</td></tr>
+  </table>
+  <h2>Itinera – fourteen long dreams</h2>
+  <p>An Itinera dream is a composed route through many Biomes that evolves on its own for 30 minutes to four hours: Hortus Quietus, Via Siderum, Silva Nocturna, Mare Nebularum, Lumen Primum, Terra Pluvia, Aurora Polaris, Somnus Lenis, Murmur Arenae, Speculum Glaciei, Ignes Errantes, Fungi Lucentes, Terra Resonans, Aer Silens. Choose the dream (E1), its length (E2: 30, 60, 120, 240 min), pace (E3: slow, steady, lively) and hall (E4: close, wide, vast). With the transport stopped, <span class="kbd">F1</span> START begins it; <span class="kbd">F2</span> STOP ends it. The pads still play.</p>
+  <h2>Journeys – your own route</h2>
+  <p>JOURNEY chains up to eight Biomes as sections. On JOURNEY choose the section (E2) and its Biome (E3) and how many sections are used (E4); E1 runs the journey ONCE or in a LOOP. JOURNEY TIME sets bars, repeats and transposition per section; JOURNEY KEEP decides which tracks carry over from one section into the next – a bassline can stay while the world around it changes.</p>
+  <h2>Banks – whole projects</h2>
+  <p>BANKS has sixteen slots. Choose a slot (E1), <span class="kbd">F1</span> SAVE, <span class="kbd">F2</span> LOAD. A slot keeps the <b>sound project</b>: the Biome and every setting of the engine’s pages – voices, effects, sequencer, harmony, links, drift, journey. It does <b>not</b> keep the performance layer: pad moments, a looping gesture, latches, favourites, the input (LISTEN / SING / CV) and MIDI settings stay as they are when you load a slot. E4 sets the length of REC takes for this session.</p>
+  <div class="tip"><b>Saving in general.</b> In a DAW the whole state – the sound project, favourites, moments, latches, a looping gesture, radio, input and MIDI settings – is saved with the project. On the VIBE it is kept when the device saves. If the host refuses to write, the header says SAVE FAILED or SAVE INCOMPLETE – save again.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 12</div>
+  <h1><span class="num">12</span>Recording: audio, MIDI, controllers, stems</h1>
+  <div class="card"><h3>REC – audio takes</h3><p>Press <span class="kbd">REC</span>: what you hear is written as a 44.1 kHz stereo WAV file, 90 s by default (30–120 s on BANKS); REC again ends it earlier. Takes land in the host's media folder under <code>VIBE FM/mutable-dreams-garden/</code>, numbered “dream take 1.wav”, “dream take 2.wav” … In the Web Player choose a folder under <b>Media</b> first. While a take runs, the header shows its time; while it is written, SAVING with a percentage.</p></div>
+  <div class="card"><h3>Dream as MIDI</h3><p>MIDI page <span class="kbd">F1</span> NOTES OUT (or the DAW parameter “Dream as MIDI”): every note the dream plays goes out as MIDI – tracks on channels 1–6, the kit on channel 10. Record the generative music as MIDI in your DAW and keep or edit it.</p></div>
+  <div class="card"><h3>Performance as CC</h3><p><span class="kbd">SHIFT</span> + E4 on PADS (“MIDI CC out”): the eight texture / space lanes and PULSE go out as CC 20–28 on channel 1, only when they change – for lights, other synths or automation lanes.</p></div>
+  <div class="card"><h3>Stems</h3><p>Give VIBE FM VST eight outputs: the six tracks come dry on OUT 3–8, one mixer channel each; OUT 1–2 stay the full mix with effects. The SYSTEM page says whether stems are live.</p></div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 13</div>
+  <h1><span class="num">13</span>The stage and the Dream Console</h1>
+  <h2>The stage</h2>
+  <p>Where the host can show it – the Web Player and the plugin – the stage is the instrument's face, 1280 × 720, over the Biome's night. Three views at the top:</p>
+  <ul>
+    <li><b>GARDEN:</b> the night garden reacting to every texture and space; four macro sliders (drag them) with the weather's signs; the 16 pads with their signs (higher in a pad = harder, right-click = latch); favourites F1–F6; PLAY, STOP, ON AIR; the lanes of the gesture.</li>
+    <li><b>PLACES:</b> six places the sound goes to – the echo cave, the spore meadow, the stream, reeds in the wind, the moon pond (the inputs) and the singing flower (SING). A click opens the place's page.</li>
+    <li><b>PAGES:</b> the display at twice its size with every control beside it – groups, MENU, SHIFT, HOME, RETURN, ◀ ▶, ENTER, the encoders (drag or wheel), PLAY and STOP. Click a page in the menu or F1–F6 on the display. Right-click = SHIFT + click.</li>
+  </ul>
+  <p>The <b>?</b> starts or ends FIRST STEPS. Esc or the host's Stage key switches between stage and device.</p>
+  <div class="two">
+    <figure><img src="guide-img/Stage-Orte.png" alt=""><figcaption>PLACES.</figcaption></figure>
+    <figure><img src="guide-img/Stage-Alle-Seiten.png" alt=""><figcaption>PAGES.</figcaption></figure>
+  </div>
+  <h2>The Dream Console</h2>
+  <p>VIBE FM VST: switch the Editor view to CUSTOM. Web Player: View › Editor. The firmware's own page – everything at once, made for a mouse:</p>
+  <ul>
+    <li>The device's display, live (click F1–F6 on it, a page in MENU; the wheel turns DATA) and THE DEVICE card with all keys and encoders.</li>
+    <li>Now playing, the station's line, favourites, NEXT BIOME, VARIATION, UNDO.</li>
+    <li>The 16 pads (shift- or right-click latches), the gesture (CAPTURE · LOOP IT · STOP · LAYER, playback, tone mode).</li>
+    <li>The <b>Biome library</b>: all 271 with family, tempo and key; search, family filter, sort, SURPRISE ME; click loads, ☆ stores a favourite. The WORLDS tab with every world's story.</li>
+    <li>Macro knobs, live depths, moments and wander, four XY fields for textures and spaces, and the LISTEN card (input, meter, the sung note, SING modes).</li>
+  </ul>
+  <p>STANDARD shows the host's own editor: eight cards in three tabs with XY pads, the gesture curve and buttons.</p>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 14</div>
+  <h1><span class="num">14</span>Working in a DAW</h1>
+  <table>
+    <tr><th>Feature</th><th>How</th></tr>
+    <tr><td class="k">30 parameters</td><td>Biome (favourite 1–6), tempo, root, scale, the four macros, FX return, texture and space depth, pad tail, gesture length / start / playback, tone pads target and mode, the nine performance lanes (forest, air, water, stardust, bloom, echo, grain, dusk, pulse), CC out, wander, moment, Dream as MIDI. Their ids never change, so automation in old projects keeps working.</td></tr>
+    <tr><td class="k">Automation plays the pads</td><td>The nine performance lanes act like invisible hands on pads 5–12 and PULSE; the strongest of hand, gesture and automation wins.</td></tr>
+    <tr><td class="k">Knobs report back</td><td>Turning an encoder on the device or a knob in the Console moves the DAW parameter too – record it as automation.</td></tr>
+    <tr><td class="k">Tempo and transport</td><td>Follows the DAW's tempo and play / stop.</td></tr>
+    <tr><td class="k">Song position</td><td>With SONG POS (MIDI page F2, default on) the sequencer stands where the song stands: start in the middle of a bar or loop a section, and the notes fall on the song's sixteenths. FREE ignores the song position.</td></tr>
+    <tr><td class="k">Notes</td><td>The DAW's notes play the selected track (or the track MIDI CHANNEL routes them to).</td></tr>
+    <tr><td class="k">Program Change</td><td>Channel 16 picks a Biome by its place in the library; bank select CC 0 reaches all 271. In VIBE FM VST 0.8.0 with the anyDAW Studio 0.3.61 plugin host, Program Change worked through AU and did not reach the firmware through VST3; use the Biome parameter in that host.</td></tr>
+    <tr><td class="k">All notes off</td><td>CC 120 / 123 stop notes only; latches, the gesture loop and moments stay.</td></tr>
+    <tr><td class="k">Stems</td><td>Eight outputs: six dry tracks on OUT 3–8 (chapter 12).</td></tr>
+    <tr><td class="k">Saved with the project</td><td>Everything (chapter 11).</td></tr>
+  </table>
+  <div class="tip"><b>Composing with it.</b> Record Dream as MIDI on six DAW tracks while you perform the pads and macros as automation. Afterwards you have both: the notes to edit and the performance to replay – or to send to other instruments.</div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 15</div>
+  <h1><span class="num">15</span>Controllers, grids, MIDI learn, pedal</h1>
+  <h2>MIDI learn</h2>
+  <ol class="steps">
+    <li>Open MIDI LEARN (MENU, DREAM). Choose a slot with E1 or <span class="kbd">F1</span> / <span class="kbd">F2</span>.</li>
+    <li>Choose the target with E2: DENSITY, MOTION, COLOUR, SPACE, LEVEL, CUTOFF, PAN, GRAIN SEND, DELAY SEND, ROOM SEND, DRIFT POS, DRIFT DEPTH; and the track with E3.</li>
+    <li>Press <span class="kbd">F3</span> LEARN (or turn E4 to the right) and move a knob on your controller. LISTENING turns into the learned CC.</li>
+    <li>MIDI MAP shows and edits the slot: port (USB, TRS, BLE, any), channel, CC, active. <span class="kbd">F4</span> CLEAR empties a slot.</li>
+  </ol>
+  <p>A learned knob takes over softly: it starts moving the value once it reaches the value's current position, so nothing jumps.</p>
+  <h2>8 × 8 grids (Launchpad, Push)</h2>
+  <p>Choose the grid as the VIBE's pads (Web Player: Controllers › “Launchpad as 8 × 8 pads”). Top left: the sixteen pads. Top right: tracks T1–T6, PLAY, STOP, moments M1–M6, variation and REC. The lower half: the 32 steps of the selected track (tap = note on / off).</p>
+  <h2>Pedal and keyboard</h2>
+  <ul>
+    <li>Footswitch: pad 16 (gesture capture, loop, stop). Expression pedal: space depth.</li>
+    <li>Web Player keyboard: pads on 1–8 and Q–I, keys on Y–M, Esc stage ↔ device.</li>
+    <li>VIBE FM Link: an FM-1 shows the open page, the four values over the Biome's night and the six tracks as a little garden.</li>
+  </ul>
+  <p>Other controllers are mapped by the host (VIBE FM's controller profiles) – the firmware itself contains no controller code.</p>
+</section>
+
+<section class="chapter recipesChapter">
+  <div class="kicker">Chapter 16</div>
+  <h1><span class="num">16</span>Ideas and recipes</h1>
+  <p class="lead">Complete little setups to try. Each starts from PLAY on any Biome unless it says otherwise.</p>
+
+  <div class="recipe"><span class="tag">Live · 10 minutes</span><h3>A ten-minute ambient set without a laptop</h3>
+    <ol><li>Store six Biomes that belong together on <span class="kbd">F1</span>–<span class="kbd">F6</span> (BROWSER, <span class="kbd">SHIFT</span> + F).</li>
+    <li>Start quiet: DENSITY low, SPACE high, latch BLOOM (<span class="kbd">SHIFT</span> + pad 9).</li>
+    <li>Record a gesture over FOREST and WATER (pad 16), let it loop.</li>
+    <li>Every two minutes tap NEXT: the gesture and latch carry into the next world. Build with DENSITY and PULSE, release with THIN and DUSK.</li>
+    <li>End by turning DENSITY down and letting the pad tails ring out, then STOP.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Voice · only on the VIBE</span><h3>Call and response with your voice</h3>
+    <ol><li>Plug a microphone into IN 1. LISTEN: <span class="kbd">F1</span> INPUT, <span class="kbd">F2</span> until MIC, THROUGH about 60, ECHO 40.</li>
+    <li>SING: <span class="kbd">F5</span> KEY, sing a comfortable note – the Biome moves into your key.</li>
+    <li><span class="kbd">F4</span> ANSWER, E1 to a melodic track (a bell, flute or keys engine sounds best), DUCK 40.</li>
+    <li>Sing three or four notes and stop. Watch LISTENING… fill up, then the garden replies. Answer its answer.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Instrument · guitar, synth</span><h3>The garden as an effect pedal</h3>
+    <ol><li>Guitar into IN 1 (HI-Z) or a synth into IN 1 + 2 (LINE, STEREO).</li>
+    <li>LISTEN: THROUGH 80, CLOUD 50, ROOM 60. Play a chord and press <span class="kbd">F4</span> HOLD: the cloud freezes with your chord inside.</li>
+    <li>Play a melody over your frozen chord; the garden's own tracks can stay quiet (DENSITY 0) or join softly.</li>
+    <li>Use pads 9–12 as effect throws: ECHO for repeats, GRAIN for dust, DUSK to darken.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Dynamics</span><h3>Music that breathes with the room</h3>
+    <p>LISTEN <span class="kbd">F5</span> MOVES on DENSITY, microphone in the room. Silence thins the music; voices, steps or a kettle make it busier. For an installation or a party in the background.</p></div>
+
+  <div class="recipe"><span class="tag">Sleep · meditation</span><h3>A long night</h3>
+    <ol><li>ITINERA: choose Somnus Lenis or Aer Silens, length 240 min, pace slow, hall vast. Transport stopped, <span class="kbd">F1</span> START.</li>
+    <li>Or JOURNEY with four quiet Biomes in a LOOP, 32 bars each, and WANDER on PADS for gentle movement.</li>
+    <li>Lower SPACE depth (B) a little so the room does not grow too large over hours.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Background · events</span><h3>Your own radio station</h3>
+    <p>RADIO: AT START on, piece length RADIO, ITINERA on, ID CHIME on. The instrument broadcasts by itself as soon as it is switched on – for a shop, a waiting room, an exhibition. STOP ends it whenever you want to play yourself.</p></div>
+
+  <div class="recipe"><span class="tag">Modular</span><h3>A modular voice in the garden</h3>
+    <ol><li>CV GATE: <span class="kbd">F2</span> (track 2) as CV OUT; patch CV OUT to a VCO's 1 V/oct and GATE OUT to an envelope.</li>
+    <li>Set the gate length (E3) to taste; shift the octave (E2) until LIMIT disappears.</li>
+    <li>Patch an LFO or a random source into CV IN, E4 to MOTION: the modular now moves the garden while the garden plays the modular.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Studio</span><h3>A generative composer for your DAW</h3>
+    <ol><li>MIDI <span class="kbd">F1</span> NOTES OUT. Record channels 1–6 and 10 into six or seven DAW tracks with your own instruments.</li>
+    <li>Use SHIFT + pad 15 for variations until a passage sounds right; keep the take.</li>
+    <li>Turn SONG POS on so the dream sits on your arrangement's grid, and use JOURNEY for a chord change across sections.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Film · scenes</span><h3>From one mood to another</h3>
+    <ol><li>Shape scene A (calm macros, few tracks) and capture it on DRIFT SCENES <span class="kbd">F1</span>. Shape scene B (dense, bright) and capture <span class="kbd">F2</span>.</li>
+    <li>DRIFT: FLOW with a slow RATE glides between them by itself; HOLD with POSITION (or a MIDI-learned fader on DRIFT POS) lets you place the scene exactly – to picture.</li></ol></div>
+
+  <div class="recipe"><span class="tag">Rhythm</span><h3>Lo-fi beat under a dream</h3>
+    <p>KIT: KIT on, bank Dust Room, HISS a little. KIT SEQ: GENERATE pulse or stars. Track 4 now plays the kit (5 and 6 rest). Use PULSE (pad 14) on the eighths and GROOVE swing 20 %. THIN removes melody tracks for a drum break.</p></div>
+
+  <div class="recipe"><span class="tag">Together</span><h3>Two people, one garden</h3>
+    <p>One player on the pads and the gesture, the other on the stage or the Dream Console with the macros and the library. Or a child on the pads and you on the keys: the tone pads can play another track than the keyboard (PADS E4).</p></div>
+
+  <div class="recipe"><span class="tag">Practice</span><h3>An ear trainer</h3>
+    <p>SING FOLLOW shows the note you sing and its cents needle. Pick a Biome in a major or pentatonic scale, sing scales and watch the needle settle; HARMONY lets you hear the third and fifth against your note.</p></div>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 17</div>
+  <h1><span class="num">17</span>Troubleshooting and questions</h1>
+  <table>
+    <tr><th>When …</th><th>then …</th></tr>
+    <tr><td class="k">there is no sound</td><td>Press PLAY (the button breathes until you do). In the Web Player click Power on; in a DAW start the transport. Check that DENSITY is not at 0 and no track is muted (VOICE E4).</td></tr>
+    <tr><td class="k">I don't know where to start</td><td>Click <b>?</b> on the stage or in the Console, or SYSTEM <span class="kbd">F1</span>: FIRST STEPS.</td></tr>
+    <tr><td class="k">I only see the garden</td><td>Click PAGES on the stage, press MENU on the device, or open the Dream Console.</td></tr>
+    <tr><td class="k">pad 16 shows CAPTURE and nothing happens</td><td>It records your moves on pads 5–12, not audio. Play them, then tap 16 again.</td></tr>
+    <tr><td class="k">DRIFT does not move</td><td>Capture scene A and B on DRIFT SCENES first (with drift off). Then DRIFT: HOLD or FLOW.</td></tr>
+    <tr><td class="k">tracks 5 and 6 are greyed out</td><td>The kit is on: track 4 plays the kit and 5–6 rest. KIT E1 off brings them back.</td></tr>
+    <tr><td class="k">a learned MIDI knob does nothing at first</td><td>It takes over softly: move it through the current value.</td></tr>
+    <tr><td class="k">the garden does not hear me</td><td>LISTEN <span class="kbd">F1</span> INPUT on; the right type on <span class="kbd">F2</span> (MIC for a microphone); the meter moves? For SING raise SENSE. In the Web Player allow the microphone.</td></tr>
+    <tr><td class="k">it howls</td><td>Feedback: THROUGH and ECHO down, headphones, or the microphone further away.</td></tr>
+    <tr><td class="k">REC says NO PLACE TO WRITE THE TAKE</td><td>The host has no media folder: in the Web Player choose one under Media.</td></tr>
+    <tr><td class="k">the radio changed my Biome</td><td>That is the programme. F3 OFF AIR or STOP ends it; favourites stay.</td></tr>
+    <tr><td class="k">Itinera does not start</td><td>Stop the transport first, then <span class="kbd">F1</span> on ITINERA.</td></tr>
+    <tr><td class="k">stems are silent</td><td>The host needs more than two outputs; SYSTEM says whether stems are live.</td></tr>
+    <tr><td class="k">something sounds wrong after a variation</td><td><span class="kbd">SHIFT</span> + <span class="kbd">RETURN</span> undoes it.</td></tr>
+    <tr><td class="k">FILL does nothing</td><td>The fill is queued while playing: press PLAY, then SEQ RULES <span class="kbd">F1</span>.</td></tr>
+    <tr><td class="k">a key on the display looks grey with a mark</td><td>It is assigned but unavailable right now (e.g. a resting track).</td></tr>
+  </table>
+</section>
+
+<section class="chapter">
+  <div class="kicker">Chapter 18</div>
+  <h1><span class="num">18</span>Specifications, licence and credits</h1>
+  <table>
+    <tr><td class="k">Engine</td><td>Mutable Dreams 2.1 (build 2467CC38): six tracks, 24 sound engines, 271 Biomes in 19 families, 14 Itinera dreams, 8-section journeys, 16 banks.</td></tr>
+    <tr><td class="k">Firmware</td><td>One WebAssembly module (about 1.1 MB), built with the VIBE FM SDK; only the WebAssembly extensions VIBE FM allows.</td></tr>
+    <tr><td class="k">Sample rates</td><td>44.1 to 192 kHz; any block size from 1 to 256 frames. The engine runs at 44.1 kHz inside and is resampled.</td></tr>
+    <tr><td class="k">Outputs</td><td>Stereo mix; with eight outputs six dry track stems on OUT 3–8. CV and gate out; CV in.</td></tr>
+    <tr><td class="k">Inputs</td><td>IN 1 / IN 2 (line, mic, Hi-Z; mono or stereo).</td></tr>
+    <tr><td class="k">Display / stage</td><td>480 × 320 display, 1280 × 720 stage, an editor page of its own.</td></tr>
+    <tr><td class="k">DAW</td><td>30 automatable parameters with stable ids; state saved with the project.</td></tr>
+    <tr><td class="k">Tested</td><td>The SDK's checker (format, crashes, NaN, real time, storage, media) and 36 test programs of its own and from independent review, including a fuzzer at 44.1, 48, 96 and 192 kHz. Earlier VST3 / AU checks used VIBE FM VST 0.8.0 in anyDAW Studio 0.3.61: saving requires an audio block after a parameter change; AU state restoration was checked after initialisation. VIBE FM Mk1 hardware, CLAP and stems in a multichannel DAW are still untested.</td></tr>
+  </table>
+  <h2>Licence</h2>
+  <p>Mutable Dreams · Performance Garden is free software under the <b>GNU General Public License 3.0 only</b>. The complete source code is published with each release. The licence texts and notices of every component travel inside the firmware's zip (<code>mutable-dreams-garden.editor/licenses/</code>).</p>
+  <ul>
+    <li>Mutable Instruments DSP and resource data (Plaits, Rings, Elements, stmlib) © Émilie Gillet, MIT licence. The source tree includes Elements sample data and Plaits sound banks/wavetables; the original kit samples, Satin tables and Biome banks are generated by the engine tools.</li>
+    <li>VIBE FM SDK © 2026 Sven Trogus, Apache-2.0; its fonts under their own licences.</li>
+    <li>Editor fonts Nunito and Barlow Semi Condensed, SIL Open Font License 1.1.</li>
+    <li>“VIBE FM” is a trademark of its owner. This firmware is built with the VIBE FM SDK.</li>
+  </ul>
+  <h2>Credits</h2>
+  <p>Firmware, sound design, the garden and the worlds by <b>Kid Bunka</b>. The SING pitch follower was written together with Codex; independent reviews and tests by Codex.</p>
+  <p class="small">Manual for private preview 0.32 · 17 November 2026. Feedback is very welcome.</p>
+</section>
+</body></html>

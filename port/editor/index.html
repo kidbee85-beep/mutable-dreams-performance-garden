@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mutable Dreams · Dream Console</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="garden" aria-hidden="true"></canvas>
+  <header>
+    <div class="brand">
+      <canvas id="sigil" width="112" height="112" title="The Biome's sign"></canvas>
+      <div>
+      <h1>Mutable Dreams</h1>
+      <p>Performance Garden · Kid Bunka</p>
+      </div>
+    </div>
+    <div class="transport">
+      <button id="play" class="chip" title="PLAY on the device">PLAY</button>
+      <button id="stop" class="chip" title="STOP on the device – also ends the broadcast">STOP</button>
+      <button id="air" class="chip air" title="Mutable Dreams FM – the RADIO page"><i></i>ON AIR</button>
+      <button id="rec" class="chip rec" title="REC – a take as WAV, length on BANKS"><i></i><span>REC</span></button>
+      <button id="tour" class="chip tourbtn" title="FIRST STEPS – a short guided tour; again: end it">?</button>
+    </div>
+  </header>
+  <div id="coach" class="coach" hidden><div class="seeds" id="coachseeds"></div><div><b id="coachtitle"></b><span id="coachtext"></span></div><button id="coachend" title="End the tour (HOME on the device)">END TOUR</button></div>
+
+  <main>
+    <section class="left">
+      <canvas id="display" width="480" height="320" title="The VIBE's display – click F1–F6 at its bottom, or a page in ALL PAGES; the wheel turns DATA"></canvas>
+      <div class="card device">
+        <div class="label">THE DEVICE · ALL 50 PAGES</div>
+        <div class="groups" id="groups"></div>
+        <div class="navrow">
+          <button class="small shift" id="shift" title="SHIFT for the next control: SHIFT + F stores, SHIFT + RETURN undoes, SHIFT + encoders on PADS">SHIFT</button>
+          <button class="small" data-btn="17" title="HOME: what every control on this page does">HOME</button>
+          <button class="small" data-btn="16" title="RETURN: back to LIVE">RETURN</button>
+          <button class="small" data-btn="18" title="◀: the page before">◀</button>
+          <button class="small" data-btn="20" title="▶: the next page">▶</button>
+          <button class="small" data-btn="9" title="ENTER">ENTER</button>
+        </div>
+        <div class="encs" id="encs"></div>
+      </div>
+      <div class="card now">
+        <div class="label" id="page">LIVE</div>
+        <canvas id="nowsigil" width="128" height="128" title="The Biome's sign"></canvas>
+        <div class="biome" id="biome">–</div>
+        <div class="world" id="world"></div>
+        <div class="family" id="family"></div>
+        <div class="radio" id="radio"></div>
+      </div>
+      <div class="card">
+        <div class="label">FAVOURITES · F1–F6 ON LIVE</div>
+        <div class="favs" id="favs"></div>
+        <div class="row">
+          <button id="next" class="small" title="Pad 15">NEXT BIOME</button>
+          <button id="vary" class="small" title="SHIFT + pad 15">VARIATION</button>
+          <button id="undo" class="small" title="SHIFT + RETURN">UNDO</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="center">
+      <div class="pads" id="pads"></div>
+      <p class="hint">Click a pad – higher in the pad plays harder. Shift- or right-click latches pads 1–14 (on 15: variation, on 16: layer).</p>
+      <div class="card gesture">
+        <div>
+          <div class="label">GESTURE · PAD 16</div>
+          <div class="state" id="gstate">Tap CAPTURE, play TEXTURE and SPACE (pads 5–12): your moves loop.</div>
+        </div>
+        <div class="row">
+          <button id="grec" class="small" title="Pad 16: capture, then loop, then clear">CAPTURE</button>
+          <button id="gdub" class="small" title="SHIFT + pad 16: one more pass on the loop">LAYER</button>
+          <select id="gspeed" title="Gesture playback"></select>
+          <select id="tmode" title="Tone pads"></select>
+        </div>
+      </div>
+      <div class="card library">
+        <div class="libhead">
+          <div class="tabs"><button id="tab-biomes" class="on">BIOMES</button><button id="tab-worlds" title="Kid Bunka's 48 worlds: a Biome with its tempo, macros, settings and lanes">WORLDS</button></div>
+          <div class="label" id="libcount">BIOME LIBRARY</div>
+          <input id="libq" type="search" placeholder="Search a name, family, key or tempo …" autocomplete="off">
+          <select id="libsort" title="Order">
+            <option value="wheel">Curated order</option><option value="name">Name</option><option value="tempo">Tempo</option>
+          </select>
+          <select id="libwander" title="Wandering worlds: the next world of the family after a while" hidden>
+            <option value="0">Worlds stay</option><option value="5">Wander · 5 min</option><option value="10">Wander · 10 min</option><option value="20">Wander · 20 min</option>
+          </select>
+          <button id="libdice" class="small" title="A Biome at random from what the filter shows">SURPRISE ME</button>
+        </div>
+        <div class="fams" id="libfams"></div>
+        <div class="liblist" id="liblist"><p class="hint">The library arrives from the firmware …</p></div>
+        <p class="hint">Click loads the Biome, or enters the world · ☆ stores the Biome on the highlighted favourite (F1–F6). On the device: the BROWSER page, F5 for the worlds.</p>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="card">
+        <div class="label">MACROS · ENCODERS 1–4 ON LIVE</div>
+        <div class="knobs">
+          <div class="knob" data-id="macro_density"><span></span><b>DENSITY</b></div>
+          <div class="knob" data-id="macro_motion"><span></span><b>MOTION</b></div>
+          <div class="knob" data-id="macro_colour"><span></span><b>COLOUR</b></div>
+          <div class="knob" data-id="macro_space"><span></span><b>SPACE</b></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="label">LIVE DEPTH · ENCODERS A / B · PULSE LANE</div>
+        <label class="slide">TEXTURE <input type="range" min="0" max="1000" data-id="texture_depth"><em></em></label>
+        <label class="slide">SPACE <input type="range" min="0" max="1000" data-id="space_depth"><em></em></label>
+        <label class="slide" title="Automation lane of pad 14: above 0 the pulse keeps breathing">PULSE <input type="range" min="0" max="1000" data-id="perf_pulse"><em></em></label>
+      </div>
+      <div class="card listen">
+        <div class="label">THE GARDEN LISTENS · IN 1 / IN 2</div>
+        <div class="listen-row"><button id="lin" title="IN 1 / IN 2 into the cloud, echo and room (LISTEN page)">INPUT</button><div class="meter"><i id="lmeter"></i></div><b id="lnote">–</b></div>
+        <div class="sing" id="sing"><button data-m="0">OFF</button><button data-m="1">FOLLOW</button><button data-m="2">HARMONY</button><button data-m="3">ANSWER</button></div>
+        <div class="hint" id="lhint">Sing or play into IN 1: the garden answers in the Biome's scale.</div>
+      </div>
+      <div class="card">
+        <div class="label">MOMENTS · CLICK RECALLS, SHIFT-CLICK STORES</div>
+        <div class="moments" id="moments"></div>
+        <label class="toggle"><input type="checkbox" data-id="wander"> Wander – the garden moves while the hands rest</label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="xy" data-x="perf_forest" data-y="perf_air"><b>FOREST ↔ AIR</b><i></i></div>
+    <div class="xy" data-x="perf_water" data-y="perf_stardust"><b>WATER ↔ STARDUST</b><i></i></div>
+    <div class="xy space" data-x="perf_bloom" data-y="perf_echo"><b>BLOOM ↔ ECHO</b><i></i></div>
+    <div class="xy space" data-x="perf_grain" data-y="perf_dusk"><b>GRAIN ↔ DUSK</b><i></i></div>
+  </footer>
+
+  <script src="vibe-editor.js"></script>
+  <script src="kit.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

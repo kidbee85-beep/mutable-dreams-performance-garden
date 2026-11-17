@@ -1,0 +1,41 @@
+name: Publish reviewed Performance Garden 0.32 preview
+on:
+  push:
+    branches: [main]
+    paths: ["releases/v0.32.0-preview/**", ".github/workflows/release-0.32.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: performance-garden-032-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Verify reviewed artifacts and publish preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir release
+          cd release
+          for file in mutable-dreams-garden.wasm Mutable-Dreams-Performance-Garden-0.32.zip Mutable-Dreams-Performance-Garden-Manual.pdf Release-Notes.md SHA256SUMS.txt; do
+            curl --fail --silent --show-error --location "https://raw.githubusercontent.com/${GH_REPO}/${SOURCE_SHA}/releases/v0.32.0-preview/${file}" --output "$file"
+          done
+          sha256sum --check SHA256SUMS.txt
+          python3 - <<'PYCODE'
+          import zipfile, hashlib
+          with zipfile.ZipFile('Mutable-Dreams-Performance-Garden-0.32.zip') as z:
+              assert z.testzip() is None
+              wasm=[n for n in z.namelist() if n.endswith('.wasm')]
+              assert len(wasm)==1
+              assert hashlib.sha256(z.read(wasm[0])).hexdigest()=='7e92c85283bee8268253927ebc082e8b390ec722945d4122c4f8433fc89766b5'
+          PYCODE
+          if gh release view v0.32.0-preview >/dev/null 2>&1; then
+            echo 'Release already exists; leaving existing publication unchanged.'
+            exit 0
+          fi
+          gh release create v0.32.0-preview --target "$SOURCE_SHA" --prerelease --title "Performance Garden 0.32 - the living garden" --notes-file Release-Notes.md mutable-dreams-garden.wasm Mutable-Dreams-Performance-Garden-0.32.zip Mutable-Dreams-Performance-Garden-Manual.pdf SHA256SUMS.txt

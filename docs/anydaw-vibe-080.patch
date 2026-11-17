@@ -1,0 +1,38 @@
+--- a/native-plugins.cjs
++++ b/native-plugins.cjs
+@@ -42,14 +42,32 @@
+  }
+  async function addFolder({folder}){await ready;folders=[...new Set([...folders,await fs.realpath(folder)])];await persist();return true;}
+  async function pickFolder(){const pick=await dialog.showOpenDialog(getWindow(),{title:'Plugin-Ordner / Plugin folder',properties:['openDirectory']});if(pick.canceled)return false;folders.push(await fs.realpath(pick.filePaths[0]));folders=[...new Set(folders)];await persist();return true;}
++ // VIBE FM VST 0.8 exposes VST3 MIDI/Program proxies as parameters after its 256 firmware slots.
++ // Replaying these transient values re-sends Program 0 and overwrites the restored Biome on the first block.
++ // Restore only declared firmware controls; explicit MIDI/automation commands remain untouched.
++ async function restoreVibeValues(host,values){
++  const parameters=await host.ask('parameters',{});
++  if(values&&typeof values==='object')for(const p of parameters){
++   const value=values[p.index];
++   if(p.index<256&&p.name&&p.name.trim()&&p.name!=='-'&&p.name!=='MIDI/controller'&&typeof value==='number'&&Number.isFinite(value))
++    await host.ask('parameter',{index:p.index,value:Math.min(1,Math.max(0,value))});
++  }
++  return host.ask('parameters',{});
++ }
+  async function create({pluginId,state=null,offline=false,frames=512}){
+   if(![128,256,512].includes(frames))throw Error('Invalid native block size');
+   await ready;if(instances.size>=24)throw Error('At most 24 native instances can be open, including renders.');const d=catalog.get(pluginId);if(!d)throw Error('Plugin not in this Mac’s scanned catalog. Scan and select it first.');
+-  if(state?.chunk&&state.chunk.length>7000000)throw Error('Plugin state exceeds limit');const id=randomUUID(),audioToken=randomUUID(),direct=!offline&&typeof audioOrigin==='string',host=new NativeProcess(binary,m=>{getWindow()?.webContents.send('mf:native-event',{instance:id,...m})},{binaryAudio:!direct,websocketAudio:direct,frames});host.frames=frames;host.websocketAudio=direct;instances.set(id,host);
+-  try{const result=await host.ask('load',{xml:d.xml,rate:44100,frames,state:state?.chunk||'',values:state?.values||null,offline,...(direct?{audioToken,audioOrigin}:{})},30000);d.lastLoad='success';d.lastLoadAt=Date.now();persist().catch(()=>{});return{id,pid:host.child.pid,frames,transport:direct?'float32-websocket':'float32-pipe',...result,...(direct?{audioSocket:{port:result.audioPort,token:audioToken}}:{})};}catch(e){d.lastLoad='failed';d.lastError=e.message;persist().catch(()=>{});instances.delete(id);host.close();throw e;}
++  if(state?.chunk&&state.chunk.length>7000000)throw Error('Plugin state exceeds limit');const id=randomUUID(),audioToken=randomUUID(),direct=!offline&&typeof audioOrigin==='string',host=new NativeProcess(binary,m=>{getWindow()?.webContents.send('mf:native-event',{instance:id,...m})},{binaryAudio:!direct,websocketAudio:direct,frames});host.frames=frames;host.websocketAudio=direct;host.vibeRestoreCompat=d.name==='VIBE FM VST'&&d.manufacturer==='VIBE FM'&&d.version==='0.8.0'&&['VST3','AudioUnit'].includes(d.format);instances.set(id,host);
++  try{
++   const lateVibeAU=host.vibeRestoreCompat&&d.format==='AudioUnit'&&!!state?.chunk;
++   const result=await host.ask('load',{xml:d.xml,rate:44100,frames,state:lateVibeAU?'':state?.chunk||'',values:host.vibeRestoreCompat?null:state?.values||null,offline,...(direct?{audioToken,audioOrigin}:{})},30000);
++   // This AU discards a firmware state supplied before prepareToPlay. Set it after initialization instead.
++   if(lateVibeAU)await host.ask('setState',{state:state.chunk,values:null});
++   if(host.vibeRestoreCompat&&state?.chunk)result.parameters=await restoreVibeValues(host,state.values);
++   d.lastLoad='success';d.lastLoadAt=Date.now();persist().catch(()=>{});return{id,pid:host.child.pid,frames,transport:direct?'float32-websocket':'float32-pipe',...result,...(direct?{audioSocket:{port:result.audioPort,token:audioToken}}:{})};}catch(e){d.lastLoad='failed';d.lastError=e.message;persist().catch(()=>{});instances.delete(id);host.close();throw e;}
+  }
+  const instance=id=>instances.get(id)||(()=>{throw Error('Native instance is unavailable')})();
+- async function command({instance:id,cmd,...args}){if(!['editor','state','setState','parameters','parameter','reset','diagnostics'].includes(cmd))throw Error('Unsupported native command');if(cmd==='setState'&&String(args.state||'').length>7000000)throw Error('Plugin state exceeds limit');return instance(id).ask(cmd,args)}
++ async function command({instance:id,cmd,...args}){if(!['editor','state','setState','parameters','parameter','reset','diagnostics'].includes(cmd))throw Error('Unsupported native command');if(cmd==='setState'&&String(args.state||'').length>7000000)throw Error('Plugin state exceeds limit');const host=instance(id);if(cmd==='setState'&&host.vibeRestoreCompat){const result=await host.ask(cmd,{...args,values:null});await restoreVibeValues(host,args.values);return result;}return host.ask(cmd,args)}
+  async function process({instance:id,audio,midi=[],params=[],transport=null,seq}){
+   const host=instance(id),frames=host.frames||512;if(host.websocketAudio)throw Error('Use the direct local audio socket');
+   if(!(audio instanceof Float32Array)||audio.length!==frames*2||!Array.isArray(midi)||midi.length>4096||!Array.isArray(params)||params.length>4096)throw Error('Invalid native audio packet');

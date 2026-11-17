@@ -1,0 +1,99 @@
+0.6	5.6	Mutable Dreams · Performance Garden | Kid Bunka · Performance Garden 0.32 · built with the VIBE FM SDK
+6	11.6	Play | Six tracks of evolving music - play the garden, shape its weather
+12	23.6	Four macros | Density, motion, colour and space shape the whole garden – they are its weather
+24	27.8	Tone pads 1–4 | Root, fifth, third, ninth - notes, chords or arpeggios in the current key
+28	34.8	Texture pads 5–8 | Forest, air and water; stardust follows the Biome's key
+35	41.8	Space pads 9–12 | Bloom, echo, grain, dusk – open the room, let it repeat, scatter it, darken it
+42	46.8	Form pads 13–16 | Thin lets tracks rest, pulse breathes on the eighths, next and gesture follow
+47	52	The gesture | Tap pad 16 and play textures and spaces …
+52.2	58.8	The gesture | … tap 16 again: your hands loop by themselves, the lanes show them
+59	63.6	Next | Pad 15 moves to the next of six favourite Biomes – the gesture keeps going
+64	68.6	Variation | SHIFT + 15: the same Biome, newly seeded – SHIFT + RETURN takes it back
+69	74.6	All 50 pages | The display at twice its size, with page controls beside it
+75	80.6	Browser | 271 Biomes in 19 families; browse Kid Bunka's 48 worlds
+81	86.6	Moments | On PADS: SHIFT + F stores a performance snapshot; F recalls it
+87	91.6	Mixer | Six tracks, 24 engines - choose each track's own voice and effect sends
+92	95.6	Filter and envelope | LP12, LP24 or LPG filtering; attack up to 8 s, decay up to 16 s
+96	100.6	Motion | Marbles, Tides, two LFOs, links between tracks, drift between two scenes
+101	105.6	Harmony | 13 scales, chord progressions, a bassline with its own sixteen steps
+106	110.6	Sequencer | Euclidean rhythms, steps with rules and fills, generators, a lo-fi drum kit
+111	114.6	Effects | The echo cave, the spore meadow, the grain cloud, the tape
+115	122.6	Places | Where the sound goes: cave, meadow, stream, reeds, the moon pond, the singing flower
+123	127.6	Audio input | LISTEN routes IN 1 / IN 2 through cloud, echo and room
+128	133.6	Sing | Follow, harmony or answer: the garden plays along with your voice
+134	147	Call and response | A test melody enters IN 1 and stops - the garden answers
+148	153.6	CV and gate | CV OUT and GATE OUT follow a track; CV IN can control a macro
+154	161.6	Mutable Dreams FM | A radio station inside the instrument; SKIP finds the next piece
+162	166.6	Itinera | Fourteen long dreams, from thirty minutes to four hours
+167	171.6	Journeys and banks | Chain Biomes into a journey; sixteen banks keep whole sound projects
+172	177.6	In the studio | 30 DAW controls, MIDI learn and six dry stems in compatible hosts
+178	182.6	Help | HOME explains the page; hold an F key to read its help
+183	189.6	First steps | A guided tour for new players – each card moves on when you have done it
+190	198.6	Latch and depth | SHIFT + pad keeps a pad playing; encoders A and B set how deep the rows go
+199	206.6	Tone modes | Note, chord or arpeggio in time – SHIFT + encoder 1 on PADS
+207	216.6	Layer and speed | SHIFT + 16 layers more moves into the loop; it plays half, double or reversed
+217	226.6	Wander | When your hands rest, the garden plays its texture and space pads by itself
+227	237.6	Drift | Capture two scenes, and the garden glides between them by itself
+238	243.6	Moves | The input's loudness lifts a macro – here DENSITY
+244	249.4	Key | Play or sing one note: it becomes the Biome's key
+249.5	252.8	Hold | The cloud freezes with the input inside
+253	259.6	Fills and bass | F1 queues a fill on SEQ RULES; the bassline plays Euclid or its own steps
+260	265.6	Journey | Up to eight Biomes in a row, each with bars, repeats and the tracks it keeps
+266	273.6	MIDI learn | Move a controller: a CC now moves DENSITY – or level, cutoff, a send, the drift
+274	282.6	REC | Recording controls write a WAV when the host provides a media store
+283	293.6	A whole instrument to explore | Sound, rhythm, performance, long dreams and the tools to make them yours
+294	301.6	New in 0.32 | Seven animated page families, a page-turn bloom and living macro plants
+320.1	322.85	Page 01 / 50 - LIVE | The Biome's four macros. F1-F6: favourite Biomes
+323.1	325.85	Page 02 / 50 - BROWSER | All Biomes by family. F1 loads, SHIFT + F: favourite
+326.1	328.85	Page 03 / 50 - VOICE | Tone preset and engine of the selected track
+329.1	331.85	Page 04 / 50 - ENGINE | Colour, harmonics and shape of the track's engine
+332.1	334.85	Page 05 / 50 - MIX | Cloud send, base note, pan and clock division
+335.1	337.85	Page 06 / 50 - MIXER | Level and the three effect sends of each track
+338.1	340.85	Page 07 / 50 - ENVELOPE | Attack up to 8 s, decay up to 16 s
+341.1	343.85	Page 08 / 50 - FILTER | Cutoff, resonance, type and breathing
+344.1	346.85	Page 09 / 50 - MODULATION | Marbles, Tides and Warps of the track
+347.1	349.85	Page 10 / 50 - LFO A | Where Tides moves, its wave, depth and rate
+350.1	352.85	Page 11 / 50 - LFO B | A second LFO for the same track
+353.1	355.85	Page 12 / 50 - LINKS | Living links: one track moves another
+356.1	358.85	Page 13 / 50 - LINK MOTION | Signal, depth and release of the link
+359.1	361.85	Page 14 / 50 - DRIFT | Glide between two captured scenes
+362.1	364.85	Page 15 / 50 - DRIFT SCENES | F1 / F2 capture scene A / B while drift is off
+365.1	367.85	Page 16 / 50 - HARMONY | Root, scale, transpose and tempo
+368.1	370.85	Page 17 / 50 - PROGRESSION | Chord pattern, bars, follow and voicing
+371.1	373.85	Page 18 / 50 - BASSLINE | Bass mode, motif, glide and note
+374.1	376.85	Page 19 / 50 - PHRASE | The sixteen bass steps, accent and chance
+377.1	379.85	Page 20 / 50 - PERFORM | The 16 performance pads. FX again: pad settings
+380.1	382.85	Page 21 / 50 - PADS | Pad tail, gesture, start, tone pads. F1-F6 moments
+383.1	385.85	Page 22 / 50 - SPACE | Echo time and feedback, room tail, effect return
+386.1	388.85	Page 23 / 50 - GRAIN | The granular bus: mix, size, position, feedback
+389.1	391.85	Page 24 / 50 - CLOUD | Air in the grains, mix, track send, freeze
+392.1	394.85	Page 25 / 50 - TAPE | Grain pitch and direction, ducking
+395.1	397.85	Page 26 / 50 - LISTEN | IN 1 / IN 2 into the cloud, echo and room. F1 input on
+398.1	400.85	Page 27 / 50 - SING | Sing or play into IN 1: the garden answers. F1-F4 mode
+401.1	403.85	Page 28 / 50 - RHYTHM | Euclidean hits, length, rotation, chance
+404.1	406.85	Page 29 / 50 - GROOVE | Swing, repeats, accent, clock division
+407.1	409.85	Page 30 / 50 - SEQUENCE | Step sequence: on, step, note, length
+410.1	412.85	Page 31 / 50 - STEP | Velocity, gate and chance of the step
+413.1	415.85	Page 32 / 50 - FLOW | Direction, shift, feel and generator
+416.1	418.85	Page 33 / 50 - SEQ GRID | All six tracks step by step. F: track, encoders edit
+419.1	421.85	Page 34 / 50 - SEQ TOOLS | Copy, paste, transpose, reverse, accent, articulate. F1 applies
+422.1	424.85	Page 35 / 50 - SEQ RULES | Per-step rules and the fill. F1 queues the fill
+425.1	427.85	Page 36 / 50 - KIT | Lo-fi drum kit on track 4: mode, bank, pad, hiss
+428.1	430.85	Page 37 / 50 - KIT PAD | Tune, level, cutoff and decay of the pad
+431.1	433.85	Page 38 / 50 - KIT SEND | Cloud, echo and room sends of the kit
+434.1	436.85	Page 39 / 50 - KIT SEQ | Kit steps: step, gate, length, generator
+437.1	439.85	Page 40 / 50 - RADIO | Mutable Dreams FM: the station's programme. F1 on air, F2 skip, F3 off
+440.1	442.85	Page 41 / 50 - ITINERA | Fourteen long dreams. F1 starts, F2 stops
+443.1	445.85	Page 42 / 50 - JOURNEY | Eight sections of Biomes in a row
+446.1	448.85	Page 43 / 50 - JOURNEY TIME | Bars, repeats and transposition per section
+449.1	451.85	Page 44 / 50 - JOURNEY KEEP | Which tracks a section keeps
+452.1	454.85	Page 45 / 50 - BANKS | Sixteen project slots. F1 save / F2 load
+455.1	457.85	Page 46 / 50 - SYSTEM | Tempo, ECO / FULL, ducking recovery
+458.1	460.85	Page 47 / 50 - MIDI | Clock, input snap, track channel, macro CCs
+461.1	463.85	Page 48 / 50 - MIDI LEARN | Slot, target, track. Encoder 4 right arms
+464.1	466.85	Page 49 / 50 - MIDI MAP | Port, channel, CC and on / off of the slot
+467.1	469.85	Page 50 / 50 - CV GATE | CV and gate out follow a track, CV in moves a macro
+470	477.6	Thank you for helping this garden grow | Free VIBE FM preview · Kid Bunka · @mutabledreams
+302	306.6	Dream Console | A dedicated custom editor: pads, macros, help and the Biome library
+307	311.6	Worlds and performance | Search, favourites, moments, latches, gestures and playful exploration
+312	319.6	Inside VIBE FM | Load the firmware ZIP in AU or VST3; choose Stage or the custom Editor

@@ -1,12 +1,12 @@
 {
-  "what": "A generative VIBE FM instrument with 271 Biomes, 16 expressive pads, a gesture loop, Itinera journeys and a custom Stage and Dream Console.",
+  "what": "The complete Mutable Dreams 2.1 as a native Vibe: six tracks of generative music, 271 Biomes, 16 performance pads with a gesture looper, a night garden – and a garden that listens: sing into IN 1 and it answers. CV, DAW song position, 50 pages, a stage and its own editor.",
   "author": "Kid Bunka",
   "kinds": [
     "synth"
   ],
-  "play": "https://play.thefirmwarehub.com/",
-  "cheat": "https://github.com/kidbee85-beep/mutable-dreams-performance-garden/releases/download/v0.18.0-preview/Mutable-Dreams-Performance-Garden-User-Guide.pdf",
-  "image": "garden-card.jpg",
+  "image": "docs/card.png",
   "color": "#83D2A6",
-  "sounds": "own: original procedural lo-fi percussion PCM and sound presets from Mutable Dreams 2.1."
+  "sounds": "licensed: Mutable Instruments Elements sample data and Plaits sound banks/wavetables, MIT (Émilie Gillet; engine-2.1/app/third_party/); own: original synthesized kit samples, Satin wavetables and Biome banks (engine-2.1/tools)",
+  "play": "https://play.thefirmwarehub.com/",
+  "cheat": "https://github.com/kidbee85-beep/mutable-dreams-performance-garden/releases/download/v0.32.0-preview/Mutable-Dreams-Performance-Garden-Manual.pdf"
 }
