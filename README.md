@@ -12,6 +12,12 @@ what only the VIBE can do:
 - **A stage** (1280 × 720) with the night garden, PLACES (where the sound goes) and all 50 pages; **the Dream Console**
   editor page; **FIRST STEPS**, a guided tour for new players; six stems on OUT 3–8; 8 × 8 grids; VIBE FM Link.
 
+## Watch the garden
+
+[Full musical tour - all 50 pages](https://youtu.be/N9S8feDyzpA) · [60-second Short](https://youtube.com/shorts/0uW_118MWoc). Both videos are scheduled for 18 November 2026, 10:00 CET: original firmware sound, English on-screen explanations, no narration.
+
+Follow [Mutable Dreams on Instagram](https://www.instagram.com/mutabledreams/) and [Kid Bunka](https://www.instagram.com/kid_bunka/). Optional [support for future development](https://www.paypal.com/donate/?business=kidbee85%40gmail.com).
+
 ## Download and play
 
 [Download the firmware ZIP and illustrated guide](https://github.com/kidbee85-beep/mutable-dreams-performance-garden/releases/tag/v0.32.0-preview).
